@@ -1,10 +1,10 @@
-#Node REST Service
+# Node REST Service
 Uses mongoDB to provide data for C52 Web and Mobile apps.
 
-##Setup
+## Setup
 Install node js
 
-###windows
+### windows
 
 
-###mac / linux
+### mac / linux
