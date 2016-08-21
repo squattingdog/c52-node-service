@@ -33,8 +33,8 @@ mac
 
 #### Start mongoDB
 Windows
-start mongoDB using the following command
-    `mongod -f config\mongodb.conf`
+start mongoDB using the mongod command specifying the config file to use.
+    `e:\c52\dev\c52-node>mongod -f config\mongodb.conf`
 
 
 ### Create ./config/config.local.js
