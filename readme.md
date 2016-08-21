@@ -25,11 +25,16 @@ mac
 * Install using homebrew
 * or download the latest version from https://www.mongodb.com/download-center?jmp=nav#community
 
-#### Configure mongodb
+#### Configure mongoDB
 * Create a data directory where the data files will be stored.  Ensure the process running node has access to read and write to the directory and all of its files.
    * example e:\c52\dev\mongdb\data
 * Add the location that was created to the $root/config/mongodb.conf file in storage:dbPath.
 * Create a logs folder under $root. (this will eventually be added to the setup script)
+
+#### Start mongoDB
+Windows
+start mongoDB using the following command
+	mongod -f config\mongodb.conf
 
 
 ### Create ./config/config.local.js
