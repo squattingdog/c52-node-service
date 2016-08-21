@@ -39,4 +39,4 @@ Start mongoDB using the mongod command specifying the config file to use.
 
 ### Create ./config/config.local.js
 This file contains all the configuration settings for you local machine.  Create the file in the $root/config directory.  The values in the settings object within 
-config.js can be re-defined in config.local.js and will take precedence over the default values definged in config.js.
+config.js can be re-defined in config.local.js and will take precedence over the default values defined in config.js.
