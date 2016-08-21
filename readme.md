@@ -35,7 +35,7 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 ##### Windows
 Start mongoDB using the mongod command specifying the config file to use.
 
-    `e:\c52\dev\c52-node>mongod -f config\mongodb.conf`
+	e:\c52\dev\c52-node>mongod -f config\mongodb.conf
 
 
 ### Create ./config/config.local.js
