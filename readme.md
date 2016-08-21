@@ -1,10 +1,10 @@
 # Node REST Service
 A nodejs server that syncs data from SFDC to a mongoDB in order to expose data for C52 apps through a set of REST routes.
 
-## Setup Local Machine
+##  Local Machine Setup
 ### Install node js
 * Download from: https://nodejs.org/en/download/
-* Run the setup and follow the steps in the wizard.
+* Run the setup and follow the steps in the wizard for your OS.
 
 ### Install Redis
 Windows
