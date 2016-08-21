@@ -24,6 +24,7 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 ### Install mongoDB (Community Edition)
 ##### Windows
 * Download the latest version from https://www.mongodb.com/download-center?jmp=nav#community
+* Install mongoDB using defaults.
 
 ##### linux
 * Install using yum or apt-get
