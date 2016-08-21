@@ -7,21 +7,21 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 * Run the setup and follow the steps in the wizard for your OS.
 
 ### Install Redis
-Windows
+##### Windows
 * Download from https://github.com/MSOpenTech/redis/releases/download/win-3.2.100/Redis-x64-3.2.100.msi
 * Run the installer and accept all defaults.  The port should be 6379.
 
-mac / linux
+##### mac / linux
 
 ### Install mongoDB (Community Edition)
-Windows
+##### Windows
 * Download the latest version from https://www.mongodb.com/download-center?jmp=nav#community
 
-linux
+##### linux
 * Install using yum or apt-get
 * or download the latest version from https://www.mongodb.com/download-center?jmp=nav#community
 
-mac
+##### OsX
 * Install using homebrew
 * or download the latest version from https://www.mongodb.com/download-center?jmp=nav#community
 
@@ -32,8 +32,8 @@ mac
 * Create a logs folder under $root. (this will eventually be added to the setup script)
 
 #### Start mongoDB
-Windows
-start mongoDB using the mongod command specifying the config file to use.
+##### Windows
+Start mongoDB using the mongod command specifying the config file to use.
     `e:\c52\dev\c52-node>mongod -f config\mongodb.conf`
 
 
