@@ -1,12 +1,12 @@
-﻿mdoule.exports = function (session) {
+﻿module.exports = function (session) {
     var redis = require('redis');
     var redisStore = require('connect-redis')(session);
     var url = require('url');
 
     var redisUrl = url.parse('redis://127.0.0.1:6379');
-    var client = redis.creaetClient(redisUrl.port, redisUrl.hostname);
+    var client = redis.createClient(redisUrl.port, redisUrl.hostname);
 
-    return {
+    var settings = {
         debug: false,
         pfxPath: null,
         pfxPass: null,
@@ -23,4 +23,5 @@
         accessTokenTTL: 480, //accessToken time to live in minutes
 
     };
+    return settings;
 };
