@@ -5,6 +5,12 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 ### Install node js
 * Download from: https://nodejs.org/en/download/
 * Run the setup and follow the steps in the wizard for your OS.
+  ##### Windows
+  * do not use program files or program files x86 for the install location.
+  * install them in c:\nodejs or within your local project directory structure i.e. `c:\c52\nodejs>`
+* Update npm
+  ##### Windows
+  * Follow the instructions here: https://github.com/felixrieseberg/npm-windows-upgrade
 
 ### Install Redis
 ##### Windows
