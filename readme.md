@@ -43,13 +43,39 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 #### Start mongoDB
 ##### Windows
 Start mongoDB using the mongod command specifying the config file to use.
-
-	e:\c52\dev\c52-node>mongod -f config\mongo.conf
+```powershell
+e:\c52\dev\c52-node>mongod -f config\mongo.conf
+```
 
 ##### linux
 
 ##### OS X
 
 ### Create ./config/config.local.js
-This file contains all the configuration settings for you local machine.  Create the file in the $root/config directory.  The values in the settings object within 
+This file contains all the configuration settings specific to your local machine.  Create the file in the $root/config directory.  The values in the settings object within 
 config.js can be re-defined in config.local.js and will take precedence over the default values defined in config.js.
+
+An example of the file is:
+```javascript
+module.exports = function (session) {
+	//return the settings as json
+	return {
+		accessTokenTTL: 10
+	}
+}
+```
+
+#### Install Project Node Modules	
+The project does not contain the dependent node modules, only a reference to them in the package.json file.
+In a new terminal, run the following command in your $root directory:
+```powershell
+e:\c52\c52-node>npm install
+```
+
+***Note: you will have 2 terminal instances running.  One for mongoDB and one for the node app.***
+
+#### Start the Node js App
+To start the app so it is listening for requests, execute the following command from $root:
+```powershell
+e:\c52\c52-node>grunt dev
+```
