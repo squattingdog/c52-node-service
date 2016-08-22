@@ -1,6 +1,8 @@
 # Node REST Service
 A nodejs server that syncs data from SFDC to a mongoDB in order to expose data for C52 apps through a set of REST routes.
 
+***Note: you will have 2 terminal instances running.  One for mongoDB and one for the node app.***
+
 ##  Local Machine Setup
 ### Install node js
 * Download from: https://nodejs.org/en/download/
@@ -71,8 +73,6 @@ In a new terminal, run the following command in your $root directory:
 ```powershell
 e:\c52\c52-node>npm install
 ```
-
-***Note: you will have 2 terminal instances running.  One for mongoDB and one for the node app.***
 
 #### Start the Node js App
 To start the app so it is listening for requests, execute the following command from $root:
