@@ -88,7 +88,7 @@ e:\c52\c52-node>npm install
 
 ### Start the Node js App
 To start the app so it is listening for requests, execute the following command from $root:
-```powershell
+```dos
 e:\c52\c52-node>grunt dev
 ```
 
