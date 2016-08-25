@@ -49,11 +49,11 @@ function start(args) {
     var server;
     if (args.serveSSL) {
         server = https.createServer(options, app).listen(args.port, function () {
-            console.log('HTTPS app listening at:'.bold.cyan, server.address(), '\n');
+            console.log('HTTPS app listening at:'.bold.cyan, JSON.stringify(server.address()).bold.blue, '\n');
         });
     } else {
         server = http.createServer(app).listen(args.port, function () {
-            console.log('HTTP app listening at:'.bold.cyan, server.address(), '\n');
+            console.log('HTTP app listening at:'.bold.cyan, JSON.stringify(server.address()).bold.blue, '\n');
         });
     }
 };

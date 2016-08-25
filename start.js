@@ -10,7 +10,7 @@ process.argv.forEach(function (val, index, array) {
 });
 
 var startupType = process.argv[2];
-console.log('starting as '.yellow + startupType.yellow + ' instance'.yellow);
+console.log(('starting as ' + startupType + ' instance').bold.yellow);
 
 //set startup args by type
 var extend = require('extend');
