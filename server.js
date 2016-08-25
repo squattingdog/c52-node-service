@@ -1,9 +1,10 @@
 function start(args) {
-    var http = require('http');
-    var https = require('https');
-    var express = require('express');
     var bodyParser = require('body-parser');
     var cookieParser = require('cookie-parser');
+    var express = require('express');
+    var fs = require('fs');
+    var http = require('http');
+    var https = require('https');
     var mongoose = require('mongoose');
 
     var app = express();
@@ -25,7 +26,36 @@ function start(args) {
     mongoose.connect('mongodb://localhost/c52node');
     var db = mongoose.connection;
 
-    console.log('server running'.bold.green);
+    //API Router
+    var apiRouter = express.Router();
+    app.use('/api', apiRouter);
+    require('./routes/apiRoutes.js').__init({
+        router: apiRouter,
+        startArgs: args
+    });
+
+    //set the server options
+    var options = {
+        hostname: args.hostname
+    };
+
+    //look for certificate settings - use them if provided
+    if (args.pfxPath) {
+        options.pfx = fs.readFileSync(args.pfxPath);
+        options.passphrase = args.pfxPass;
+    }
+
+    //set up server/listener
+    var server;
+    if (args.serveSSL) {
+        server = https.createServer(options, app).listen(args.port, function () {
+            console.log('HTTPS app listening at:'.bold.cyan, server.address(), '\n');
+        });
+    } else {
+        server = http.createServer(app).listen(args.port, function () {
+            console.log('HTTP app listening at:'.bold.cyan, server.address(), '\n');
+        });
+    }
 };
 
 exports.start = start;

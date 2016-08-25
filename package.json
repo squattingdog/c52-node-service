@@ -9,6 +9,7 @@
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "extend": "^3.0.0",
+    "fs": "0.0.1-security",
     "grunt": "^1.0.1",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-watch": "^1.0.0",
@@ -19,6 +20,7 @@
     "mongoose": "^4.5.9",
     "nodejs": "^0.0.0",
     "redis": "^2.6.2",
+    "request": "^2.74.0",
     "url": "^0.11.0"
   },
   "description": "Node RESTful service project for external apps.",

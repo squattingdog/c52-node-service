@@ -8,10 +8,10 @@
 
     var settings = {
         debug: false,
-        pfxPath: null,
-        pfxPass: null,
-        hostname: 'rest.church52.org',
-        port: process.env.PORT,
+        pfxPath: null, //use in local config for https './certificates/c52.pfx'
+        pfxPass: null, //use in local config for https 'passwd'
+        hostname: 'c52-local.church52.org',
+        port: process.env.PORT | 5000,
         session: session({
             store: new redisStore({
                 client: client

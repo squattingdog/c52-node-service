@@ -9,10 +9,20 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 * Run the setup and follow the steps in the wizard for your OS.
   ##### Windows
   * do not use program files or program files x86 for the install location.
-  * install them in c:\nodejs or within your local project directory structure i.e. `c:\c52\nodejs>`
-* Update npm
+  * install them in c:\nodejs or within your local project directory structure. 
+    ```powershell
+    c:\c52\nodejs>
+    ```
+  ##### Linux
+
+  ##### OS X
+
+### Update npm
   ##### Windows
   * Follow the instructions here: https://github.com/felixrieseberg/npm-windows-upgrade
+  ##### Linux
+
+  ##### OS X
 
 ### Install Redis
 ##### Windows
@@ -55,7 +65,9 @@ e:\c52\dev\c52-node>mongod -f config\mongo.conf
 
 ### Create ./config/config.local.js
 This file contains all the configuration settings specific to your local machine.  Create the file in the $root/config directory.  The values in the settings object within 
-config.js can be re-defined in config.local.js and will take precedence over the default values defined in config.js.
+config.js can be re-defined in config.local.js and will take precedence over the default values defined in config.js.  A sample file exists, local.sample.js, which can
+be used as a starting point.  Just rename it to config.local.js.  
+***Note: the config.local.js is in .gitignore and should never be checked into source.***
 
 An example of the file is:
 ```javascript
@@ -78,4 +90,29 @@ e:\c52\c52-node>npm install
 To start the app so it is listening for requests, execute the following command from $root:
 ```powershell
 e:\c52\c52-node>grunt dev
+```
+
+#### Add Entry to Hosts File
+Update the hosts file by adding the following line:
+```127.0.0.1 c52-local.church52.org``` 
+##### Windows
+File location: `c:\windows\system32\drivers\etc\hosts`
+##### Linux
+File Location: `\etc\hosts`
+##### OS X
+
+#### Test the App
+Open a browser or REST client and send a get request to:
+```
+https://c52-local.church52.org
+```
+
+The response should resemble:
+```json
+{
+	"test" : "api",
+	"version" : "0.0.1",
+	"name" : "concordia",
+	"description" : "initial version of the REST service running on node js v6.4.0 under project concordia."
+}
 ```
