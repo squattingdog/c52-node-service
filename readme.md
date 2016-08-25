@@ -10,7 +10,7 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
   ##### Windows
   * do not use program files or program files x86 for the install location.
   * install them in c:\nodejs or within your local project directory structure. 
-    ```powershell
+    ```dos
     c:\c52\nodejs>
     ```
   ##### Linux
@@ -55,7 +55,7 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 #### Start mongoDB
 ##### Windows
 Start mongoDB using the mongod command specifying the config file to use.
-```powershell
+```dos
 e:\c52\dev\c52-node>mongod -f config\mongo.conf
 ```
 
@@ -79,29 +79,31 @@ module.exports = function (session) {
 }
 ```
 
-#### Install Project Node Modules	
+### Install Project Node Modules	
 The project does not contain the dependent node modules, only a reference to them in the package.json file.
 In a new terminal, run the following command in your $root directory:
-```powershell
+```dos
 e:\c52\c52-node>npm install
 ```
 
-#### Start the Node js App
+### Start the Node js App
 To start the app so it is listening for requests, execute the following command from $root:
 ```powershell
 e:\c52\c52-node>grunt dev
 ```
 
-#### Add Entry to Hosts File
+### Add Entry to Hosts File
 Update the hosts file by adding the following line:
-```127.0.0.1 c52-local.church52.org``` 
+```
+127.0.0.1 c52-local.church52.org
+``` 
 ##### Windows
 File location: `c:\windows\system32\drivers\etc\hosts`
 ##### Linux
 File Location: `\etc\hosts`
 ##### OS X
 
-#### Test the App
+### Test the App
 Open a browser or REST client and send a get request to:
 ```
 https://c52-local.church52.org
