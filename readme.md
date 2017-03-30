@@ -72,10 +72,10 @@ be used as a starting point.  Just rename it to config.local.js.
 An example of the file is:
 ```javascript
 module.exports = function (session) {
-	//return the settings as json
-	return {
-		accessTokenTTL: 10
-	}
+    //return the settings as json
+    return {
+        accessTokenTTL: 10
+    }
 }
 ```
 
@@ -112,9 +112,9 @@ https://c52-local.church52.org
 The response should resemble:
 ```json
 {
-	"test" : "api",
-	"version" : "0.0.1",
-	"name" : "concordia",
-	"description" : "initial version of the REST service running on node js v6.4.0 under project concordia."
+    "test" : "api",
+    "version" : "0.0.1",
+    "name" : "concordia",
+    "description" : "initial version of the REST service running on node js v6.4.0 under project concordia."
 }
 ```
