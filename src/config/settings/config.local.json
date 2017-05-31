@@ -8,12 +8,9 @@
     "pfxPath": "./certificates/c52a.pfx",
     "pfxPass": "passwd"
   },
-  "session": {
-    "redisUrl": "redis://127.0.0.1:6379",
-    "secret": "asdf1234"
-  },
   "mongoDB": {
-    "url": "mongodb://localhost:27017"
+    "url": "mongodb://heroku_w830mlvd:f9m7tkp77sla2o92bmbiadkkl5@ds147711.mlab.com:47711",
+    "db": "heroku_w830mlvd"
   },
   "providers": {
     "salesforce": {

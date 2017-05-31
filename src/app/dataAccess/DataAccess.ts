@@ -5,47 +5,30 @@ logger("Logging for DataAccess");
 import { ConfigUtil } from "../../config/settings/ConfigUtil";
 import * as Mongoose from "mongoose";
 import * as Bluebird from "bluebird";
+var color = require("colour");
 
 (<any>Mongoose).Promise = Bluebird;
 
 class DataAccess {
     //static mongooseInstance: any;
-    static mongooseConnection: Mongoose.Connection;
+    public static mongooseConnection: Mongoose.Connection;
 
     constructor() {
+        logger("DataAccess Constructor");
         DataAccess.connect();
     }
 
-    //static connect(): Mongoose.Connection {
-    //    if (this.mongooseInstance) {
-    //        return this.mongooseInstance;
-    //    }
-
-    //    this.mongooseConnection = Mongoose.Connection;
-    //    this.mongooseConnection.once("open", () => {
-    //        logger("connected to mongodb.");
-    //    });
-
-    //    this.mongooseInstance = Mongoose.createConnection(ConfigUtil.appConfig.settings.mongoDBSettings.url, { promiseLibrary: Bluebird });
-    //        //.useDB("c52");
-    //    return this.mongooseInstance;
-    //}
-
     static connect(): Mongoose.Connection {
+        logger("connecting to MongoDB");
         if (this.mongooseConnection) {
             return this.mongooseConnection;
         }
 
-       // this.mongooseConnection = Mongoose.Connection;
-        this.mongooseConnection.once("open", () => {
-            logger("connected to mongodb.");
-        });
-
-        this.mongooseConnection = Mongoose.createConnection(ConfigUtil.appConfig.settings.mongoDBSettings.url,
-            {
-                promiseLibrary: Bluebird,
-                db: ConfigUtil.appConfig.settings.mongoDBSettings.db
+        this.mongooseConnection = Mongoose.createConnection(ConfigUtil.appConfig.settings.mongoDBSettings.url + "/" + ConfigUtil.appConfig.settings.mongoDBSettings.db)
+            .once("open", () => {
+                console.log("\nconnected to mongodb using:".cyan.bold, ConfigUtil.appConfig.settings.mongoDBSettings.db.yellow.bold);
             });
+
         return this.mongooseConnection;
     }
 }

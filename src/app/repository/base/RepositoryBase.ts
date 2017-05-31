@@ -1,4 +1,8 @@
-﻿import { IRead } from "../interfaces/IRead";
+﻿import * as debug from "debug";
+let logger = debug("c52::app::repository::base::RepositoryBase");
+logger("logging for RepositoryBase");
+
+import { IRead } from "../interfaces/IRead";
 import { IWrite } from "../interfaces/IWrite";
 import * as Mongoose from "mongoose";
 
@@ -14,6 +18,8 @@ export class RepositoryBase<T extends Mongoose.Document> implements IRead<T>, IW
     }
 
     retrieve(callback: (error: any, result: T) => void) {
+        logger("repositoryBase - getting campaigns");
+        logger("model: ", this._model);
         this._model.find({}, callback);
     }
 

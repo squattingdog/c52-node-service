@@ -65,11 +65,12 @@ export class CampaignController implements IBaseController<CampaignBusiness> {
     }
 
     retrieve(req: Express.Request, res: Express.Response): void {
+        logger("getting campaigns");
         try {
             let campaignBusiness: CampaignBusiness = new CampaignBusiness();
             campaignBusiness.retrieve((error: any, result: any) => {
                 if (error) {
-                    logger.log("retrieve::error:", error);
+                    logger("retrieve::error:", error);
                     res.send({ "error": "error performing the requested action" });
                 } else {
                     res.send(result);

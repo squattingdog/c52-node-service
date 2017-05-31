@@ -1,11 +1,11 @@
 ﻿{
   "server": {
-    "port": process.env.PORT || 5000,
+    "port": 5000,
     "debug": false
   },
   "session": {
-    "redisUrl": "",
-    "secret": "",
+    "redisUrl": "redis://127.0.0.1:6379",
+    "secret": "asdf1234",
     "ttl": 480,
     "saveUnitialized": false,
     "resave": false,

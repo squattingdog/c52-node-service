@@ -5,4 +5,5 @@ export interface ICampaignModel extends Mongoose.Document {
     name: string;
     logoUrl: string;
     description: string;
+    campaignId: string;
 }

@@ -19,6 +19,7 @@ export class CampaignBusiness implements ICampaignBusiness {
     }
 
     retrieve(callback: (error: any, result: any) => void) {
+        logger("campaign business - getting campaigns");
         this.campaignRepo.retrieve(callback);
     }
 

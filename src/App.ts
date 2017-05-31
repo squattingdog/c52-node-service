@@ -9,6 +9,8 @@ import Middlewares from "./config/middlewares/base/MiddlewaresBase";
 import { AppConfig } from './config/settings/AppConfig';
 import { ConfigUtil } from './config/settings/ConfigUtil';
 
+var color = require("colour");
+
 // creates and configures an ExpressJS web server.
 export class App {
 
@@ -70,7 +72,7 @@ export class App {
         let addr = this.server.address();
         let bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
         logger(`Listening on ${bind}`);
-        console.log(`express app listening on ${bind}`);
+        console.log(`\nexpress app listening on ${bind}\n`.green.bold);
     }
 }
 

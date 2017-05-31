@@ -15,7 +15,7 @@ export class CampaignRoutes {
     get routes(): Express.Router {
         let router: Express.Router = Express.Router();
 
-        router.get("/campaigns", this.campaignController.retrieve);
+        router.get("/v1/campaigns", this.campaignController.retrieve);
         return router;
     }
 }
