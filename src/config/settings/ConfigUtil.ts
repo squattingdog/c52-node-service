@@ -26,7 +26,7 @@ export class ConfigUtil {
         }
 
         var startupArgs: {};
-        var customConfig: ISettings;
+        var customConfig: ISettings = null;
         logger("startupArgs:\n%O\n\n", startupArgs);
 
         switch (startupType.toLowerCase()) {
@@ -50,7 +50,12 @@ export class ConfigUtil {
                 break;
         }
 
-        startupArgs = extend(true, Config.settings, customConfig.settings);
+        if (customConfig) {
+            startupArgs = extend(true, Config.settings, customConfig.settings);
+        } else {
+            startupArgs = Config.settings;
+        }
+
         logger("mergedArgs:\n%O\n\n", startupArgs);
 
         ConfigUtil._appConfig = new AppConfig(startupArgs);
