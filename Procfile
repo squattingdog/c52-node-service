@@ -1,1 +1,1 @@
-﻿web: node dist/app.js prod
+﻿web: node ./dist/app.js prod
