@@ -8,6 +8,10 @@
     "start": "node dist/app.js",
     "test": "./node_modules/.bin/mocha --compilers ts:ts-node/register ./test/**/*.test.ts"
   },
+  "engines": {
+    "node": ">=7.7.1",
+    "npm": ">=4.4.4"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
