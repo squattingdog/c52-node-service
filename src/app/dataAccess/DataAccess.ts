@@ -5,7 +5,7 @@ logger("Logging for DataAccess");
 import { ConfigUtil } from "../../config/settings/ConfigUtil";
 import * as Mongoose from "mongoose";
 import * as Bluebird from "bluebird";
-var color = require("colour");
+var color = require("colors");
 
 (<any>Mongoose).Promise = Bluebird;
 

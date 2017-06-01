@@ -7,7 +7,7 @@ import { ConfigUtil } from "../../../config/settings/ConfigUtil";
 import * as Redis from "redis";
 import * as Bluebird from "bluebird";
 
-var color = require("colour");
+var color = require("colors");
 
 Bluebird.promisifyAll((<any>Redis).RedisClient.prototype);
 Bluebird.promisifyAll((<any>Redis).Multi.prototype);

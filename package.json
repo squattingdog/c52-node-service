@@ -36,14 +36,12 @@
     "gulp-nodemon": "^2.2.1",
     "gulp-typescript": "^3.1.6",
     "mocha": "^3.3.0",
-    "ts-node": "^3.0.2",
-    "typescript": "^2.3.4"
+    "ts-node": "^3.0.2"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "colors": "^1.1.2",
-    "colour": "^0.7.1",
     "connect-redis": "^3.2.0",
     "debug": "^2.6.6",
     "express": "^4.15.2",
@@ -54,6 +52,7 @@
     "promise": "^7.1.1",
     "redis": "^2.7.1",
     "request": "^2.81.0",
+    "typescript": "^2.3.4",
     "url": "^0.11.0"
   }
 }

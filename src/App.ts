@@ -9,7 +9,7 @@ import Middlewares from "./config/middlewares/base/MiddlewaresBase";
 import { AppConfig } from './config/settings/AppConfig';
 import { ConfigUtil } from './config/settings/ConfigUtil';
 
-var color = require("colour");
+var color = require("colors");
 
 // creates and configures an ExpressJS web server.
 export class App {
