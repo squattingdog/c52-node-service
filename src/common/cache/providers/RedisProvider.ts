@@ -4,8 +4,11 @@ logger("logging for RedisProvider");
 
 import { ICacheProvider } from "./interfaces/ICacheProvider";
 import { ConfigUtil } from "../../../config/settings/ConfigUtil";
-import * as Redis from 'redis';
-import * as Bluebird from 'bluebird';
+import * as Redis from "redis";
+import * as Bluebird from "bluebird";
+
+var color = require("colour");
+
 Bluebird.promisifyAll((<any>Redis).RedisClient.prototype);
 Bluebird.promisifyAll((<any>Redis).Multi.prototype);
 
@@ -29,8 +32,11 @@ export class RedisProvider implements ICacheProvider {
             , host: ConfigUtil.appConfig.settings.session.redisUrl.hostname
             , db: ConfigUtil.appConfig.settings.session.privateSessionDbId
         })
-            .on('error', (err) => {
+            .on("error", (err) => {
                 logger(err);
+            })
+            .on("ready", () => {
+                console.log("\n\tconnected to redis on host:\t".cyan.bold, ConfigUtil.appConfig.settings.session.redisUrl.hostname.yellow.bold);
             });
 
         return client;

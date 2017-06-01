@@ -26,7 +26,7 @@ class DataAccess {
 
         this.mongooseConnection = Mongoose.createConnection(ConfigUtil.appConfig.settings.mongoDBSettings.url + "/" + ConfigUtil.appConfig.settings.mongoDBSettings.db)
             .once("open", () => {
-                console.log("\nconnected to mongodb using:".cyan.bold, ConfigUtil.appConfig.settings.mongoDBSettings.db.yellow.bold);
+                console.log("\n\tconnected to mongodb on host:\t".cyan.bold, ConfigUtil.appConfig.settings.mongoDBSettings.url.yellow.bold, "\n\t\t\t\tusing:\t".cyan.bold, ConfigUtil.appConfig.settings.mongoDBSettings.db.yellow.bold);
             });
 
         return this.mongooseConnection;

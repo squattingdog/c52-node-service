@@ -1,7 +1,12 @@
-﻿import * as debug from 'debug';
-let logger = debug('c52:config:ConfigUtil');
-import { AppConfig } from './AppConfig';
-import * as extend from 'extend';
+﻿import * as debug from "debug";
+let logger = debug("c52:config:ConfigUtil");
+
+import { AppConfig } from "./AppConfig";
+import * as extend from "extend";
+import ISettings from "./interfaces/ISettings";
+import Config from "./config";
+import ConfigLocal from "./config.local";
+
 
 export class ConfigUtil {
     private static _appConfig: AppConfig;
@@ -20,36 +25,35 @@ export class ConfigUtil {
             return;
         }
 
-        var startupArgs = require('./config.json');
-        var customArgs: {};
-        logger('startupArgs:\n%O\n\n', startupArgs);
+        var startupArgs: {};
+        var customConfig: ISettings;
+        logger("startupArgs:\n%O\n\n", startupArgs);
 
         switch (startupType.toLowerCase()) {
-            case 'dev':
-                customArgs = require('./config.local.json');
-                logger('customArgs:\n%O\n\n', customArgs);
-                process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+            case "dev":
+                customConfig = ConfigLocal;
+                logger("customConfig:\n%O\n\n", customConfig.settings);
+                process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
                 break;
-            case 'qa':
+            case "qa":
 
                 break;
-            case 'uat':
+            case "uat":
 
                 break;
-            case 'prod':
+            case "prod":
 
                 break;
             default:
-                console.error('Unknown startup type:', startupType);
+                console.error("Unknown startup type:", startupType);
                 process.exit(1);
                 break;
         }
 
-        startupArgs = extend(true, startupArgs, customArgs);
-        logger('mergedArgs:\n%O\n\n', startupArgs);
+        startupArgs = extend(true, Config.settings, customConfig.settings);
+        logger("mergedArgs:\n%O\n\n", startupArgs);
 
         ConfigUtil._appConfig = new AppConfig(startupArgs);
-        //return this.appConfig;
     }
 }
 
