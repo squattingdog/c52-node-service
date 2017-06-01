@@ -64,3 +64,4 @@ gulp.task('test', function () {
 });
 
 gulp.task('dev', ['assets', 'watch', 'nodemon']);
+gulp.task('deploy', ['assets', 'scripts'])
