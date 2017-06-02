@@ -1,1 +1,1 @@
-﻿web: npm install && node ./dist/App.js prod
+﻿web: npm install && gulp deploy && node ./dist/App.js prod
