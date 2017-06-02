@@ -16,7 +16,7 @@ export class Config implements ISettings {
                 "privateSessionDbId": "3"
             },
             "mongoDB": {
-                "url": process.env.MONGODB_URL || "mongodb://localhost:27017",
+                "url": process.env.MONGODB_URI || "mongodb://localhost:27017",
                 "db": process.env.MONGODB_DB || "c52"
             },
             "providers": {
