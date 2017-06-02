@@ -5,8 +5,8 @@
   "main": "./dist/app.js",
   "types": "./app.d.ts",
   "scripts": {
-    "postinstall": "./node_modules/gulp/bin/gulp deploy",
-    "start": "node dist/app.js prod",
+    //"postinstall": "gulp deploy",
+    //"start": "node dist/app.js prod",
     "test": "./node_modules/.bin/mocha --compilers ts:ts-node/register ./test/**/*.test.ts"
   },
   "engines": {
