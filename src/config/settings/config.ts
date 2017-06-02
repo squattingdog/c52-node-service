@@ -21,8 +21,12 @@ export class Config implements ISettings {
             },
             "providers": {
                 "salesforce": {
-                    "authRoute": "services/oauth2/token",
+                    "clientId": process.env.SFDC_CLIENT_ID,
+                    "clientSecret": process.env.SFDC_CLIENT_SECRET,
+                    "username": process.env.SFDC_USERNAME,
+                    "password": process.env.SFDC_PASSWORD,
                     "instanceUrl": process.env.SFDC_INSTANCE_URL,
+                    "authRoute": "services/oauth2/token",
                     "apexRestSvc": "services/apexrest/",
                     "accessTokenTTL": 10
                 },
