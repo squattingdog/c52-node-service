@@ -1,1 +1,1 @@
-﻿web: node ./dist/app.js prod
+﻿web: npm install && node ./dist/App.js prod
