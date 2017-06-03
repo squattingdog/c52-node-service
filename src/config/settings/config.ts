@@ -13,7 +13,7 @@ export class Config implements ISettings {
                 "ttl": 480,
                 "saveUnitialized": false,
                 "resave": false,
-                "privateSessionDbId": "3"
+                "privateSessionDbId": "1"
             },
             "mongoDB": {
                 "url": process.env.MONGODB_URI || "mongodb://localhost:27017",

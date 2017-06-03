@@ -10,8 +10,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "typings/**/*.ts",
-    "src/**/*.json"
+    "typings/**/*.ts"
   ],
   "exclude": [
     "node_modules",
