@@ -7,6 +7,8 @@ import { SfdcSettings } from "../../settings/providers/SfdcSettings";
 import { ConfigUtil } from "../../settings/ConfigUtil";
 import RedisRepository from "../../../common/cache/RedisRepository";
 
+var color = require("colors");
+
 export class Proxy {
     private constants = new Constants();
 
@@ -64,6 +66,8 @@ export class Proxy {
         authForm[this.constants.SFDC_PASSWORD] = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).password;
         authForm[this.constants.SFDC_CLIENT_ID] = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).clientId;
         authForm[this.constants.SFDC_CLIENT_SECRET] = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).clientSecret;
+
+        logger("authForm:".cyan.bold, authForm);
 
         Request.post(ConfigUtil.appConfig.settings.providers[0].getAuthUrl(), { form: authForm }, (error: any, res: any, jsonBody: string) => {
             if (error) {
