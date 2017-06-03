@@ -83,7 +83,6 @@ export class ConfigSettings {
 
         let roProviders: ReadonlyArray<ProviderSettings> = providersArray;
         this.providers = roProviders;
-
     }
 }
 
