@@ -9,7 +9,7 @@ import RedisRepository from "../../../common/cache/RedisRepository";
 
 var color = require("colors");
 
-export class Proxy {
+export class SFDCProxy {
     private constants = new Constants();
 
     constructor() { }
@@ -19,9 +19,6 @@ export class Proxy {
      * checks if accessToken is present and if accessTokenTTL has expired, refreshes the token as needed.
     */
     public send(req, callback): void {
-        logger("\n\nsending request to sfdc\n");
-        logger("\nreq:\n%O\n", req);
-
         RedisRepository.getByKey(this.constants.SFDC_AUTH_CACHE_KEY).then((val) => {
             let sfdcAuth = JSON.parse(val);
 
@@ -31,9 +28,11 @@ export class Proxy {
             if (isNaN(issuedTime) || issuedTime + ConfigUtil.appConfig.settings.providers[0].accessTokenTTL * 60 * 1000 < new Date().getTime()) {
                 this.authenticate(req, (err, res, body) => {
                     if (err) {
-                        callback(err, res, body);
+                        var error = { "error": "failed to connect to SFDC" }
+                        callback(error);
                     } else {
-                        logger("auth complete, sending request");
+                        logger("*****  auth complete, sending request  *****".yellow.bold);
+                        logger("\nreq:\n%O\n".cyan.bold, req);
                         this.sendRequest(req, body, callback);
                     }
                 });
@@ -58,7 +57,7 @@ export class Proxy {
 
     // get auth token for making sfdc api calls
     private authenticate(req, callback): void {
-        logger("\n*****  Authenticating to SFDC.  *****\n");
+        logger("*****  Authenticating to SFDC.  *****\n".yellow.bold);
 
         var authForm = {};
         authForm[this.constants.SFDC_GRANT_TYPE] = this.constants.SFDC_GRANT_TYPE_VALUE_PASSWORD;
@@ -68,26 +67,29 @@ export class Proxy {
         authForm[this.constants.SFDC_CLIENT_SECRET] = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).clientSecret;
 
         logger("authForm:".cyan.bold, authForm);
+        logger("request:".cyan.bold, ConfigUtil.appConfig.settings.providers[0].getAuthUrl());
 
-        Request.post(ConfigUtil.appConfig.settings.providers[0].getAuthUrl(), { form: authForm }, (error: any, res: any, jsonBody: string) => {
-            if (error) {
-                logger("error:", error);
+        Request.post(ConfigUtil.appConfig.settings.providers[0].getAuthUrl(), { qs: authForm }, (error: any, res: any, jsonBody: string) => {
+            logger("jsonBody:%O\n", jsonBody);
+            let body = JSON.parse(jsonBody);
+
+            if (error || (body && body.error)) {
+                logger("error: %0\n".red.bold, body);
+                callback(body, res);
             } else {
-                logger("\njsonBody:%O\n", jsonBody);
-                var body = JSON.parse(jsonBody);
                 if (body[this.constants.SFDC_ACCESS_TOKEN]) {
-                    logger("\n***** Acquired Access Token *****");
-                    logger(`\n*****  ${body.access_token}  *****`);
+                    logger("***** Acquired Access Token *****\n".green.bold);
+                    logger(`*****  ${body.access_token}  *****\n`.cyan.bold);
                     RedisRepository.insert(this.constants.SFDC_AUTH_CACHE_KEY, JSON.stringify(body));
                 } else {
-                    logger("\n***** Missing Access Token *****");
+                    logger("***** Missing Access Token *****\n".red.bold);
+                    callback(body, res);
                 }
-
-                logger("callback: %O", callback);
+                
                 callback(error, res, body);
             }
         });
     }
 }
 
-export default new Proxy();
+export default new SFDCProxy();

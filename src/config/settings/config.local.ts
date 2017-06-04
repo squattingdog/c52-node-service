@@ -9,7 +9,7 @@ export class ConfigLocal implements ISettings {
                 "allowedIPs": ["::", "::ffff:127.0.0.1", "::1", "127.0.0.1"]
             },
             "session": {
-                "redisUrl": "redis://127.0.0.1:6379",
+                "redisUrl": "redis://h:p62805d3bce2d47408c51ee659d177c01f07a9d3aeb0115140500f64432065405@ec2-34-206-214-110.compute-1.amazonaws.com:45389",
                 "secret": "asdf1234"
             },
             "ssl": {

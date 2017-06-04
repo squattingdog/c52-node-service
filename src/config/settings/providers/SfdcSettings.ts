@@ -10,6 +10,7 @@ export class SfdcSettings implements ProviderSettings {
     clientSecret: string;
     password: string;
     username: string;
+    apiVersion: string;
 
     constructor(settings) {
         this.accessTokenTTL = settings.accessTokenTTL;
@@ -20,12 +21,16 @@ export class SfdcSettings implements ProviderSettings {
         this.clientSecret = settings.clientSecret;
         this.password = settings.password;
         this.username = settings.username;
+        this.apiVersion = settings.apiVersion;
     }
 
     public getAuthUrl(): string {
         return this.baseUrl + this.authRoute;
     }
     public getApexRestUrl(): string {
-        return this.baseUrl + this.apexRestSvc;
+        return this.baseUrl + this.apexRestSvc + "v" + this.apiVersion + "/";
+    }
+    public getSoslUrl(): string {
+        return this.baseUrl + "services/data/v" + this.apiVersion + "/";
     }
 }

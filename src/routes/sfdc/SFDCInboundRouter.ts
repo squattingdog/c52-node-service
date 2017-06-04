@@ -4,7 +4,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { AppConfig } from '../../config/settings/AppConfig';
 import { ConfigUtil } from "../../config/settings/ConfigUtil";
 import { SfdcSettings } from '../../config/settings/providers/SfdcSettings';
-import { Proxy } from '../../config/proxies/sfdc/Proxy';
+import SFDCProxy from '../../config/proxies/sfdc/SFDCProxy';
 
 /*
  * Inbound routes that SFDC will use to trigger updates to mongoDB data
@@ -12,12 +12,10 @@ import { Proxy } from '../../config/proxies/sfdc/Proxy';
 export class SFDCInboundRouter {
     private router: Router;
     private sfdcRoutes;
-    private sfdcProxy: Proxy;
 
     constructor() {
         this.router = Router();
         this.sfdcRoutes = require('./routes.json');
-        this.sfdcProxy = new Proxy();
 
         this.init();
     }
@@ -49,7 +47,7 @@ export class SFDCInboundRouter {
             uri: routeUri
         };
 
-        this.sfdcProxy.send(sfRequest, (error, prxyRes, body) => {
+        SFDCProxy.send(sfRequest, (error, prxyRes, body) => {
             if (error) {
                 logger(error);
                 res.status(500).send(prxyRes);

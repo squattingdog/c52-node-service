@@ -28,7 +28,8 @@ export class Config implements ISettings {
                     "instanceUrl": process.env.SFDC_INSTANCE_URL,
                     "authRoute": "services/oauth2/token",
                     "apexRestSvc": "services/apexrest/",
-                    "accessTokenTTL": 10
+                    "accessTokenTTL": 10,
+                    "apiVersion": "37.0"
                 },
                 "google": {
 

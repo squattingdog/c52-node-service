@@ -33,6 +33,21 @@ gulp.task('nodemon', ['scripts'], function (cb) {
     });
 });
 
+gulp.task('nodemonProd', ['scripts'], function (cb) {
+    var started = false;
+    return nodemon({
+        script: './dist/app.js',
+        //watch: ['./src/**/*.ts', './src/**/*.json'],
+        //task: ['assets', 'scripts', 'test'],
+        args: ['prod']
+    }).on('start', function () {
+        if (!started) {
+            cb();
+            started = true;
+        }
+    });
+});
+
 gulp.task('watch', ['scripts'], function() {
     gulp.watch('src/**/*.ts', ['scripts']);
     gulp.watch('test/**/*.ts', ['test']);
@@ -64,4 +79,5 @@ gulp.task('test', function () {
 });
 
 gulp.task('dev', ['assets', 'watch', 'nodemon']);
-gulp.task('deploy', ['assets', 'scripts'])
+gulp.task('deploy', ['assets', 'scripts']);
+gulp.task('prod', ['assets', 'watch', 'nodemonProd']);

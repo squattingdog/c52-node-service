@@ -1,15 +1,17 @@
 ﻿import * as debug from 'debug';
 let logger = debug('c52::routes::sfdc::sfdcRouter');
 import { Router, Request, Response, NextFunction } from 'express';
-import Proxy from '../../config/proxies/sfdc/Proxy';
-import { AppConfig } from '../../config/settings/AppConfig';
+import SFDCProxy from '../../config/proxies/sfdc/SFDCProxy';
+//import { AppConfig } from '../../config/settings/AppConfig';
+
+import { ConfigUtil } from "../../config/settings/ConfigUtil";
+import { SfdcSettings } from "../../config/settings/providers/SfdcSettings";
 
 export class SFDCRoutes {
     private router: Router;
 
     constructor() {
         this.router = Router();
-        //this.sfproxy = new Proxy();
         this.initRoutes();
     }
 
@@ -34,16 +36,16 @@ export class SFDCRoutes {
     */
     public getAccount(req: Request, res: Response, next: NextFunction) {
         logger('\nrequest param q: %s\n', req.params.q);
-        var routeUri = 'https://c52--theodev.cs22.my.salesforce.com/services/data/v37.0/parameterizedSearch/?q=' + req.params.q + '&sobject=Account&Account.fields=id,name&Account.limit=10';
+        var routeUri = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).getSoslUrl() + 'parameterizedSearch/?q=' + req.params.q + '&sobject=Account&Account.fields=id,name&Account.limit=10';
         var sfRequest = {
             method: 'GET',
             uri: routeUri
         };
 
-        Proxy.send(sfRequest, (error, prxyRes, body) => {
+        SFDCProxy.send(sfRequest, (error, prxyRes, body) => {
             if (error) {
                 logger(error);
-                res.status(500).send(prxyRes);
+                res.status(500).send(error);
             } else {
                 logger('got the callback');
                 res.send(JSON.parse(body));
