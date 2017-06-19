@@ -1,0 +1,1 @@
+﻿web: gulp deploy && node ./dist/App.js prod
