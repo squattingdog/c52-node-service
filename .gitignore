@@ -39,7 +39,7 @@ package-lock.json
 .node_repl_history
 
 # config settings
-config.local.js
+config.local.ts
 
 #.net solution files
 *.sln
