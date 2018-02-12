@@ -16,6 +16,10 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
   ##### Linux
 
   ##### OS X
+* Install using homebrew 
+    ```dos
+    brew install node
+    ```
 
 ### Update npm
   ##### Windows
@@ -23,6 +27,10 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
   ##### Linux
 
   ##### OS X
+* Upgrade npm using homebrew
+    ```dos
+    brew update && brew upgrade node && npm install -g npm
+    ```
 
 ### Install Redis
 ##### Windows
@@ -32,6 +40,10 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 ##### linux
 
 ##### OS X
+* Install using homebrew 
+    ```dos
+    brew install redis
+    ```
 
 ### Install mongoDB (Community Edition)
 ##### Windows
@@ -44,6 +56,9 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 
 ##### OS X
 * Install using homebrew
+  ```dos
+    brew install mongodb
+    ```
 * or download the latest version from https://www.mongodb.com/download-center?jmp=nav#community
 
 #### Configure mongoDB
@@ -62,6 +77,10 @@ e:\c52\dev\c52-node>mongod -f config\mongo.conf
 ##### linux
 
 ##### OS X
+Start mongoDB using the mongod command specifying the config file to use in the location where you installed mongodb
+  ```dos
+  mongod -f src/config/mongo.conf
+  ```
 
 ### Create ./config/config.local.js
 This file contains all the configuration settings specific to your local machine.  Create the file in the $root/config directory.  The values in the settings object within 
@@ -72,14 +91,14 @@ be used as a starting point.  Just rename it to config.local.js.
 An example of the file is:
 ```javascript
 module.exports = function (session) {
-	//return the settings as json
-	return {
-		accessTokenTTL: 10
-	}
+  //return the settings as json
+  return {
+    accessTokenTTL: 10
+  }
 }
 ```
 
-### Install Project Node Modules	
+### Install Project Node Modules  
 The project does not contain the dependent node modules, only a reference to them in the package.json file.
 In a new terminal, run the following command in your $root directory:
 ```dos
@@ -102,6 +121,7 @@ File location: `c:\windows\system32\drivers\etc\hosts`
 ##### Linux
 File Location: `\etc\hosts`
 ##### OS X
+File location: `/private/etc/hosts`
 
 ### Test the App
 Open a browser or REST client and send a get request to:
@@ -112,9 +132,9 @@ https://c52-local.church52.org
 The response should resemble:
 ```json
 {
-	"test" : "api",
-	"version" : "0.0.1",
-	"name" : "concordia",
-	"description" : "initial version of the REST service running on node js v6.4.0 under project concordia."
+  "test" : "api",
+  "version" : "0.0.1",
+  "name" : "concordia",
+  "description" : "initial version of the REST service running on node js v6.4.0 under project concordia."
 }
 ```
