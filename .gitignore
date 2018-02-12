@@ -50,3 +50,4 @@ obj
 
 # build related
 dist
+src/config/settings/config.local.*

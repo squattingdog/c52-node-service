@@ -28,7 +28,12 @@ export class SFDCProxy {
             if (isNaN(issuedTime) || issuedTime + ConfigUtil.appConfig.settings.providers[0].accessTokenTTL * 60 * 1000 < new Date().getTime()) {
                 this.authenticate(req, (err, res, body) => {
                     if (err) {
-                        var error = { "error": "failed to connect to SFDC" }
+                        var error = {
+                            "status": "ERROR",
+                            "ErrorCode": 10001,
+                            "message": "internal server error"
+                        };
+                        logger("failed to authenticate to SFDC".red.bold);
                         callback(error);
                     } else {
                         logger("*****  auth complete, sending request  *****".yellow.bold);
@@ -74,7 +79,8 @@ export class SFDCProxy {
             let body = JSON.parse(jsonBody);
 
             if (error || (body && body.error)) {
-                logger("error: %0\n".red.bold, body);
+                logger("error:".red.bold);
+                logger(body, "\n");
                 callback(body, res);
             } else {
                 if (body[this.constants.SFDC_ACCESS_TOKEN]) {
