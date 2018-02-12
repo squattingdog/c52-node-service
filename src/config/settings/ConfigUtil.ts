@@ -7,7 +7,6 @@ import ISettings from "./interfaces/ISettings";
 import Config from "./config";
 import ConfigLocal from "./config.local";
 
-
 export class ConfigUtil {
     private static _appConfig: AppConfig;
 
@@ -26,13 +25,11 @@ export class ConfigUtil {
         }
 
         var startupArgs: {};
-        var customConfig: ISettings = null;
         logger("startupArgs:\n%O\n\n", startupArgs);
 
         switch (startupType.toLowerCase()) {
             case "dev":
-                customConfig = ConfigLocal;
-                logger("customConfig:\n%O\n\n", customConfig.settings);
+                logger("ConfigLocal:\n%O\n\n", ConfigLocal.settings);
                 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
                 break;
             case "qa":
@@ -50,8 +47,8 @@ export class ConfigUtil {
                 break;
         }
 
-        if (customConfig) {
-            startupArgs = extend(true, Config.settings, customConfig.settings);
+        if (ConfigLocal) {
+            startupArgs = extend(true, Config.settings, ConfigLocal.settings);
         } else {
             startupArgs = Config.settings;
         }

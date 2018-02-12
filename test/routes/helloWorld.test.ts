@@ -4,10 +4,8 @@ import chaiHttp = require('chai-http');
 import * as AppConfig from '../../src/config/settings/AppConfig';
 import ConfigUtil from '../../src/config/settings/ConfigUtil';
 import * as Express from "express";
-//import { App } from '../../src/App';
 
 // create the express app
-//let expressApp: App = new App(ConfigUtil.getSettings('dev'));
 let app: Express.Application = Express();
 
 chai.use(chaiHttp);
