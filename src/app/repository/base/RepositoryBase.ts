@@ -18,7 +18,7 @@ export class RepositoryBase<T extends Mongoose.Document> implements IRead<T>, IW
     }
 
     retrieve(callback: (error: any, result: T) => void) {
-        logger("repositoryBase - getting campaigns");
+        logger("repositoryBase - retrieve");
         logger("model: ", this._model);
         this._model.find({}, callback);
     }
