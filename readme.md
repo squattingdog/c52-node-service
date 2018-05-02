@@ -71,7 +71,7 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 ##### Windows
 Start mongoDB using the mongod command specifying the config file to use.
 ```dos
-e:\c52\dev\c52-node>mongod -f config\mongo.conf
+e:\c52\dev\c52-node>mongod -f src\config\mongo.conf
 ```
 
 ##### linux
