@@ -8,16 +8,13 @@ import { SFDCRoutes } from "../SFDCRoutes";
 
 export class BaseRoutes {
 
-    constructor() { }
+    constructor(private app: Express.Application) { }
 
-    get routes(): Express.Application {
-        
-        let app: Express.Application = Express();
-        app.use("/api/", new CampaignRoutes().routes);
-        app.use("/api/", new SFDCRoutes().routes);
-        app.use("/", this.defaultRoute);
-
-        return app;
+    setRoutes():void {
+        let router:Express.Router = Express.Router();
+        this.app.use("/api/", new CampaignRoutes().routes);
+        this.app.use("/api/", new SFDCRoutes().routes);
+        this.app.use("/", this.defaultRoute);
     }
 
     private get defaultRoute(): Express.Router {
@@ -30,6 +27,7 @@ export class BaseRoutes {
             res.json({
                 message: 'I am online!!'
             });
+            next();
         });
 
         return router;

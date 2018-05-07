@@ -5,18 +5,10 @@ import * as Redis from "redis";
 import { ConfigUtil } from "../settings/ConfigUtil";
 
 export class Session {
-    private app: Express.Application;
 
-    constructor() {
-        this.app = Express();
-        this.initExpressSession();
-    }
+    constructor() {  }
 
-    public get exressSession(): Express.Application {
-        return this.app;
-    }
-
-    private initExpressSession(): void {
+    public getExpressSession(): Express.RequestHandler {
         let client: Redis.RedisClient = Redis.createClient({
             port: Number(ConfigUtil.appConfig.settings.session.redisUrl.port)
             , host: ConfigUtil.appConfig.settings.session.redisUrl.hostname
@@ -25,7 +17,7 @@ export class Session {
 
         let store: RedisStore.RedisStore = RedisStore(ExpressSession);
 
-        this.app.use(ExpressSession({
+        return ExpressSession({
             store: new store({
                 client: client
                 , ttl: ConfigUtil.appConfig.settings.session.ttl
@@ -33,7 +25,7 @@ export class Session {
             secret: ConfigUtil.appConfig.settings.session.secret,
             resave: ConfigUtil.appConfig.settings.session.resave,
             saveUninitialized: ConfigUtil.appConfig.settings.session.saveUninitialized
-        }));
+        });
     }
 }
 

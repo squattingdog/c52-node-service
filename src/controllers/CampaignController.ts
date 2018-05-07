@@ -3,16 +3,17 @@ let logger = debug("c52::controllers::CampaignController");
 logger("logging for CampaignController");
 
 import * as Express from "express";
-import { CampaignBusiness } from "../app/business/CampaignBusiness";
+import { CampaignService } from "../data/service/CampaignService";
 import { IBaseController } from "./interfaces/base/IBaseController";
-import { ICampaignModel } from "../app/model/interfaces/ICampaignModel";
+import { CampaignModel } from '../data/model/CampaignModel';
+import { ICampaignModel } from '../data/model/interfaces/ICampaignModel';
 
-export class CampaignController implements IBaseController<CampaignBusiness> {
+export class CampaignController implements IBaseController<CampaignService> {
     create(req: Express.Request, res: Express.Response): void {
         try {
             let campaign: ICampaignModel = <ICampaignModel>req.body;
-            let campaignBusiness: CampaignBusiness = new CampaignBusiness();
-            campaignBusiness.create(campaign, (error: any, result: any) => {
+            let campaignService: CampaignService = new CampaignService();
+            campaignService.create(campaign, (error: any, result: any) => {
                 if (error) {
                     logger("create::error", error);
                     res.send({ "error": "error performing the requested action" });
@@ -30,8 +31,8 @@ export class CampaignController implements IBaseController<CampaignBusiness> {
         try {
             let campaign: ICampaignModel = <ICampaignModel>req.body;
             let _id: string = req.params._id;
-            let campaignBusiness: CampaignBusiness = new CampaignBusiness();
-            campaignBusiness.update(_id, campaign, (error: any, result: any) => {
+            let campaignService: CampaignService = new CampaignService();
+            campaignService.update(_id, campaign, (error: any, result: any) => {
                 if (error) {
                     logger("update::error", error);
                     res.send({ "error": "error performing the requested action" });
@@ -49,8 +50,8 @@ export class CampaignController implements IBaseController<CampaignBusiness> {
     delete(req: Express.Request, res: Express.Response): void {
         try {
             let _id: string = req.params._id;
-            let campaignBusiness: CampaignBusiness = new CampaignBusiness();
-            campaignBusiness.delete(_id, (error: any, result: any) => {
+            let campaignService: CampaignService = new CampaignService();
+            campaignService.delete(_id, (error: any, result: any) => {
                 if (error) {
                     logger.log("delete::error:", error);
                     res.send({ "error": "error performing the requested action" });
@@ -64,29 +65,32 @@ export class CampaignController implements IBaseController<CampaignBusiness> {
         }
     }
 
-    retrieve(req: Express.Request, res: Express.Response): void {
+    retrieve(req: Express.Request, res: Express.Response, next:Express.NextFunction): void {
         logger("getting campaigns");
         try {
-            let campaignBusiness: CampaignBusiness = new CampaignBusiness();
-            campaignBusiness.retrieve((error: any, result: any) => {
+            let campaignService: CampaignService = new CampaignService();
+            campaignService.retrieve((error: any, result: CampaignModel[]) => {
                 if (error) {
                     logger("retrieve::error:", error);
-                    res.send({ "error": "error performing the requested action" });
+                    res.json({ "error": "error performing the requested action" });
                 } else {
-                    res.send(result);
+                    console.log("results: ");
+                    console.log(result);
+                    res.json(result);
                 }
             });
         } catch (ex) {
             logger("retrieve exception:", ex);
-            res.send({ "error": "error in your request" });
+            res.json({ "error": "error in your request" });
         }
+        logger("nexting".red.bold);
     }
 
     findById(req: Express.Request, res: Express.Response): void {
         try {
             let _id: string = req.params._id;
-            let campaignBusiness: CampaignBusiness = new CampaignBusiness();
-            campaignBusiness.findById(_id, (error: any, result: any) => {
+            let campaignService: CampaignService = new CampaignService();
+            campaignService.findById(_id, (error: any, result: any) => {
                 if (error) {
                     logger("findById::error:", error);
                     res.send({ "error": "error performing the requested action" });

@@ -6,7 +6,7 @@ import { IRead } from "../interfaces/IRead";
 import { IWrite } from "../interfaces/IWrite";
 import * as Mongoose from "mongoose";
 
-export class RepositoryBase<T extends Mongoose.Document> implements IRead<T>, IWrite<T> {
+export abstract class RepositoryBase<T extends Mongoose.Document> implements IRead<T>, IWrite<T> {
     private _model: Mongoose.Model<Mongoose.Document>;
 
     constructor(schemaModel: Mongoose.Model<Mongoose.Document>) {
@@ -17,9 +17,8 @@ export class RepositoryBase<T extends Mongoose.Document> implements IRead<T>, IW
         this._model.create(item, callback);
     }
 
-    retrieve(callback: (error: any, result: T) => void) {
+    retrieve(callback: (error: any, result: T[]) => void) {
         logger("repositoryBase - retrieve");
-        logger("model: ", this._model);
         this._model.find({}, callback);
     }
 

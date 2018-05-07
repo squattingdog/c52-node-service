@@ -1,6 +1,6 @@
 ﻿import * as debug from 'debug';
 let logger = debug('c52::routes::sfdc::sfdcRouter');
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response, NextFunction, IRouterMatcher } from 'express';
 import SFDCProxy from '../../config/proxies/sfdc/SFDCProxy';
 
 import { ConfigUtil } from "../../config/settings/ConfigUtil";

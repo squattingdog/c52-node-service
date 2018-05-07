@@ -1,4 +1,5 @@
-﻿import * as debug from 'debug';
+﻿import { BaseRoutes } from './config/routes/base/BaseRoutes';
+import * as debug from 'debug';
 let logger = debug('c52:app');
 import * as path from 'path';
 import * as Express from 'express';
@@ -8,8 +9,7 @@ import Middlewares from "./config/middlewares/base/MiddlewaresBase";
 
 import { AppConfig } from './config/settings/AppConfig';
 import { ConfigUtil } from './config/settings/ConfigUtil';
-
-var color = require("colors");
+import * as color from 'colors';
 
 // creates and configures an ExpressJS web server.
 export class App {
@@ -27,7 +27,10 @@ export class App {
         logger(`env val: ${env}\n\n`);
 
         // setup middlewares
-        this.app.use(Middlewares.configuration);
+        Middlewares.setConfiguration(this.app);
+
+        //setup routes
+        new BaseRoutes(this.app).setRoutes();
 
         this.port = this.normalizePort(process.env.PORT || ConfigUtil.appConfig.settings.port);
         logger("port: ", this.port);
