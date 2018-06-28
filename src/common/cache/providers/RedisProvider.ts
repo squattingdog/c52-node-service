@@ -1,19 +1,18 @@
-﻿import * as Debug from "debug";
-let logger = Debug("c52::common::cache::providers::RedisProvider");
+﻿import debug from "debug";
+let logger = debug("c52::common::cache::providers::RedisProvider");
 logger("logging for RedisProvider");
 
 import { ICacheProvider } from "./interfaces/ICacheProvider";
-import { ConfigUtil } from "../../../config/settings/ConfigUtil";
+import { AppConfig } from "../../../config/settings/AppConfig";
 import * as Redis from "redis";
-import * as Bluebird from "bluebird";
-
-var color = require("colors");
+import Bluebird from "bluebird";
+import { Optional } from "../../../../typings/globals";
 
 Bluebird.promisifyAll((<any>Redis).RedisClient.prototype);
 Bluebird.promisifyAll((<any>Redis).Multi.prototype);
 
 export class RedisProvider implements ICacheProvider {
-    private client: Redis.RedisClient;
+    private client: Optional<Redis.RedisClient> = undefined;
 
     constructor() { }
 
@@ -23,18 +22,18 @@ export class RedisProvider implements ICacheProvider {
         }
 
         this.client = this.connect();
-        return this.client;
+        return <Redis.RedisClient>this.client;
     }
 
     private connect(): Redis.RedisClient {
-        let pw: string = null;
-        
+        let pw: string;
+
         let client: Redis.RedisClient = Redis.createClient({
-            url: ConfigUtil.appConfig.settings.session.redisUrl.href
-            , db: ConfigUtil.appConfig.settings.session.privateSessionDbId
+            url: AppConfig.settings.session.redis.url
+            , db: AppConfig.settings.session.redis.privateSessionDbId
         });
-        if (process.argv[2] == "prod") {
-            pw = ConfigUtil.appConfig.settings.session.redisUrl.auth.split(":")[1];
+        if (process.argv[2] === "prod") {
+            pw = AppConfig.settings.session.redis.url.auth.split(":")[1];
             logger("pw".cyan.bold, pw.cyan.bold);
             client.auth(pw);
         }
@@ -42,7 +41,7 @@ export class RedisProvider implements ICacheProvider {
                 logger("Redis Error:".red.bold, err);
             })
             .on("ready", () => {
-                console.log("\n\tconnected to redis on host:\t".cyan.bold, ConfigUtil.appConfig.settings.session.redisUrl.hostname.yellow.bold);
+                console.log("\n\tconnected to redis on host:\t".cyan.bold, AppConfig.settings.session.redis.url.hostname);
             });
 
         return client;

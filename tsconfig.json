@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
-    "noImplicitAny": false,
-    "noEmitOnError": true,
-    "removeComments": false,
-    "sourceMap": true,
     "target": "es6",
     "module": "commonjs",
-    "outDir": "dist"
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "removeComments": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "watch": false
   },
   "include": [
     "src/**/*.ts",
@@ -14,6 +20,6 @@
   ],
   "exclude": [
     "node_modules",
-    "wwwroot"
+    "coverage"
   ]
 }

@@ -1,17 +1,16 @@
-﻿import * as debug from "debug";
+﻿import debug from "debug";
 let logger = debug("c52::app::dataAccess::DataAccess");
 logger("Logging for DataAccess");
 
-import { ConfigUtil } from "../../config/settings/ConfigUtil";
-import * as Mongoose from "mongoose";
-import * as Bluebird from "bluebird";
-var color = require("colors");
+import { AppConfig } from "../../config/settings/AppConfig";
+import Mongoose from "mongoose";
+import Bluebird from "bluebird";
 
 (<any>Mongoose).Promise = Bluebird;
 
 class DataAccess {
-    //static mongooseInstance: any;
-    public static mongooseConnection: Mongoose.Connection;
+    // static mongooseInstance: any;
+    static mongooseConnection: Mongoose.Connection;
 
     constructor() {
         logger("DataAccess Constructor");
@@ -24,9 +23,15 @@ class DataAccess {
             return this.mongooseConnection;
         }
 
-        this.mongooseConnection = Mongoose.createConnection(ConfigUtil.appConfig.settings.mongoDBSettings.url + "/" + ConfigUtil.appConfig.settings.mongoDBSettings.db)
+        logger(`mongoUrl: ${AppConfig.settings.db.mongo.url}`.green.bold);
+        logger(`mongo catalog: ${AppConfig.settings.db.mongo.catalog}`.green.bold);
+
+        this.mongooseConnection = Mongoose.createConnection(`${AppConfig.settings.db.mongo.url}/${AppConfig.settings.db.mongo.catalog}`)
             .once("open", () => {
-                console.log("\n\tconnected to mongodb on host:\t".cyan.bold, ConfigUtil.appConfig.settings.mongoDBSettings.url.yellow.bold, "\n\t\t\t\tusing:\t".cyan.bold, ConfigUtil.appConfig.settings.mongoDBSettings.db.yellow.bold);
+                console.log("\n\tconnected to mongodb on host:\t".cyan.bold,
+                    AppConfig.settings.db.mongo.url.yellow.bold,
+                    "\n\t\t\t\tusing:\t".cyan.bold,
+                    AppConfig.settings.db.mongo.catalog.yellow.bold);
             });
 
         return this.mongooseConnection;

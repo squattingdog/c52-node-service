@@ -1,4 +1,4 @@
-﻿import * as debug from "debug";
+﻿import debug from "debug";
 let logger = debug("c52::app::repository::base::RepositoryBase");
 logger("logging for RepositoryBase");
 

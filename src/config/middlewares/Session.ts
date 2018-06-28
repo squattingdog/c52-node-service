@@ -1,17 +1,17 @@
-﻿import * as Express from "express";
-import * as ExpressSession from "express-session";
-import * as RedisStore from "connect-redis";
-import * as Redis from "redis";
-import { ConfigUtil } from "../settings/ConfigUtil";
+﻿import { RequestHandler } from "express";
+import ExpressSession from "express-session";
+import RedisStore from "connect-redis";
+import Redis from "redis";
+import { AppConfig } from "../settings/AppConfig";
 
 export class Session {
 
     constructor() {  }
 
-    public getExpressSession(): Express.RequestHandler {
+    public getExpressSession(): RequestHandler {
         let client: Redis.RedisClient = Redis.createClient({
-            port: Number(ConfigUtil.appConfig.settings.session.redisUrl.port)
-            , host: ConfigUtil.appConfig.settings.session.redisUrl.hostname
+            port: Number(AppConfig.settings.session.redis.url.port)
+            , host: AppConfig.settings.session.redis.url.hostname
             , db: "1"
         });
 
@@ -20,11 +20,11 @@ export class Session {
         return ExpressSession({
             store: new store({
                 client: client
-                , ttl: ConfigUtil.appConfig.settings.session.ttl
+                , ttl: AppConfig.settings.session.redis.ttl
             }),
-            secret: ConfigUtil.appConfig.settings.session.secret,
-            resave: ConfigUtil.appConfig.settings.session.resave,
-            saveUninitialized: ConfigUtil.appConfig.settings.session.saveUninitialized
+            secret: AppConfig.settings.session.redis.secret,
+            resave: AppConfig.settings.session.redis.resave,
+            saveUninitialized: AppConfig.settings.session.redis.saveUninitialized
         });
     }
 }

@@ -1,8 +1,8 @@
-﻿import * as Debug from "debug";
-let logger = Debug("c52::config::routes::CampaignRouter");
+﻿import debug from "debug";
+let logger = debug("c52::config::routes::CampaignRouter");
 logger("logging for CampaignRouter");
 
-import { Router, IRouterMatcher} from "express";
+import { Router } from "express";
 import { CampaignController } from "../../controllers/CampaignController";
 
 export class CampaignRoutes {
@@ -12,14 +12,14 @@ export class CampaignRoutes {
     constructor() {
         this.campaignController = new CampaignController();
         this.router = Router();
-        this.initRoutes();
+        this.initV1Routes();
     }
 
     get routes(): Router {
         return this.router;
     }
 
-    private initRoutes() {
+    private initV1Routes() {
         this.router.get("/v1/campaigns", this.campaignController.retrieve);
     }
 }

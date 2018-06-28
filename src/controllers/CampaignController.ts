@@ -1,14 +1,15 @@
-﻿import * as debug from 'debug';
+﻿import debug from "debug";
 let logger = debug("c52::controllers::CampaignController");
 logger("logging for CampaignController");
 
 import * as Express from "express";
 import { CampaignService } from "../data/service/CampaignService";
 import { IBaseController } from "./interfaces/base/IBaseController";
-import { CampaignModel } from '../data/model/CampaignModel';
-import { ICampaignModel } from '../data/model/interfaces/ICampaignModel';
+import { CampaignModel } from "../data/model/CampaignModel";
+import { ICampaignModel } from "../data/model/interfaces/ICampaignModel";
+import { ICampaignService } from "../data/service/interfaces/ICampaignService";
 
-export class CampaignController implements IBaseController<CampaignService> {
+export class CampaignController implements IBaseController<ICampaignService> {
     create(req: Express.Request, res: Express.Response): void {
         try {
             let campaign: ICampaignModel = <ICampaignModel>req.body;
@@ -65,7 +66,7 @@ export class CampaignController implements IBaseController<CampaignService> {
         }
     }
 
-    retrieve(req: Express.Request, res: Express.Response, next:Express.NextFunction): void {
+    retrieve(req: Express.Request, res: Express.Response, next: Express.NextFunction): void {
         logger("getting campaigns");
         try {
             let campaignService: CampaignService = new CampaignService();

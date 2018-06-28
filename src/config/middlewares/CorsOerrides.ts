@@ -1,17 +1,18 @@
-import * as Express from 'express';
-import * as Cors from 'cors';
+import { AppConfig } from "./../settings/AppConfig";
+import * as Express from "express";
+import Cors from "cors";
 
 export class CorsOverrides {
-    static configuration():Express.RequestHandler {
-        const options:Cors.CorsOptions = {
-            allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
+    static configure(): Express.RequestHandler {
+        const options: Cors.CorsOptions = {
+            allowedHeaders: AppConfig.settings.server.allowedHeaders,
             credentials: false,
-            methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-            origin: '*',
+            methods: AppConfig.settings.server.methods,
+            origin: AppConfig.settings.server.origin,
             preflightContinue: false
         };
 
-        return Cors();
+        return Cors(options);
     }
 }
 
