@@ -9,6 +9,8 @@ import * as Mongoose from "mongoose";
 export abstract class RepositoryBase<T extends Mongoose.Document> implements IRead<T>, IWrite<T> {
     private _model: Mongoose.Model<Mongoose.Document>;
 
+    public get model(): Mongoose.Model<Mongoose.Document> { return this._model; }
+
     constructor(schemaModel: Mongoose.Model<Mongoose.Document>) {
         this._model = schemaModel;
     }

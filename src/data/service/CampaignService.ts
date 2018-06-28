@@ -1,6 +1,6 @@
 ﻿import debug from "debug";
-let logger = debug("c52::app::business::CampaignBusiness");
-logger("logging for CampaignBusiness");
+let logger = debug("c52::app::data::service::CampaignService");
+logger("logging for CampaignService");
 
 import { CampaignRepository } from "../repository/CampaignRepository";
 import { ICampaignService } from "./interfaces/ICampaignService";

@@ -1,10 +1,22 @@
 ﻿import * as Mongoose from "mongoose";
-import { IShiftModel } from "./IShiftModel";
 
 export interface IJobModel extends Mongoose.Document {
-    sfid: string;
+    jobId: string;
     name: string;
     description: string;
+    skills: string;
+    ongoing: boolean;
+    numberOfVolunteersStillNeeded: number;
+    nubmerOfShifts: number;
+    active: boolean;
+    location: {
+        zip: string,
+        street: string,
+        city: string,
+        state: null,
+        informataion: string,
+        geocode: number
+    };
     campaignId: string;
-    shifts: IShiftModel;
+    displayOnWebsite: boolean;
 }
