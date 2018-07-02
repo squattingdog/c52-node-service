@@ -82,21 +82,10 @@ Start mongoDB using the mongod command specifying the config file to use in the 
   mongod -f src/config/mongo.conf
   ```
 
-### Create ./config/config.local.js
-This file contains all the configuration settings specific to your local machine.  Create the file in the $root/config directory.  The values in the settings object within 
-config.js can be re-defined in config.local.js and will take precedence over the default values defined in config.js.  A sample file exists, local.sample.js, which can
-be used as a starting point.  Just rename it to config.local.js.  
-***Note: the config.local.js is in .gitignore and should never be checked into source.***
+### Create .env
+This file contains all the configuration settings specific to your local machine.  Create the file in the $root directory.  A sample file exists, sample.env, which can be used as a starting point; rename the file to .env and edit the values as needed.
+***Note: the .env is in .gitignore and should never be checked into source.***
 
-An example of the file is:
-```javascript
-module.exports = function (session) {
-  //return the settings as json
-  return {
-    accessTokenTTL: 10
-  }
-}
-```
 
 ### Install Project Node Modules  
 The project does not contain the dependent node modules, only a reference to them in the package.json file.
@@ -106,9 +95,9 @@ e:\c52\c52-node>npm install
 ```
 
 ### Start the Node js App
-To start the app so it is listening for requests, execute the following command from $root:
+To start the app so it is listening for requests and auto-restarts on file changes, execute the following command from $root:
 ```dos
-e:\c52\c52-node>gulp dev
+e:\c52\c52-node>gulp watch
 ```
 
 ### Add Entry to Hosts File
@@ -132,9 +121,6 @@ https://c52-local.church52.org
 The response should resemble:
 ```json
 {
-  "test" : "api",
-  "version" : "0.0.1",
-  "name" : "concordia",
-  "description" : "initial version of the REST service running on node js v6.4.0 under project concordia."
+  "message": "I am online!!"
 }
 ```
