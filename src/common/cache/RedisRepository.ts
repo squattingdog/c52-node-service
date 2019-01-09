@@ -8,9 +8,9 @@ import { CacheRepositoryBase } from "./base/CacheRepositoryBase";
 
 export class RedisRepository extends CacheRepositoryBase<RedisProvider> {
 
-    constructor() {
-        super(new RedisProvider());
+    constructor(provider: RedisProvider) {
+        super(provider);
     }
 }
 
-export default new RedisRepository();
+export default new RedisRepository(new RedisProvider());

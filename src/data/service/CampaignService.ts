@@ -11,8 +11,8 @@ import { Optional } from "../../../typings/globals";
 export class CampaignService implements ICampaignService {
     private campaignRepo: CampaignRepository;
 
-    constructor() {
-        this.campaignRepo = new CampaignRepository();
+    constructor(campaignRepository: CampaignRepository) {
+        this.campaignRepo = campaignRepository;
     }
 
     create(item: ICampaignModel, callback: (error: any, result: any) => void) {

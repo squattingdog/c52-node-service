@@ -5,6 +5,8 @@ logger("logging for CampaignRouter");
 import { Router } from "express";
 import { CampaignController } from "../../controllers/CampaignController";
 import { JobController } from "../../controllers/JobController";
+import { CampaignService } from "../../data/service/CampaignService";
+import { CampaignRepository } from "../../data/repository/CampaignRepository";
 
 export class CampaignRoutes {
     private campaignController: CampaignController;
@@ -12,7 +14,7 @@ export class CampaignRoutes {
     private router: Router;
 
     constructor() {
-        this.campaignController = new CampaignController();
+        this.campaignController = new CampaignController(new CampaignService(new CampaignRepository));
         this.jobController = new JobController();
         this.router = Router();
         this.initV1Routes();

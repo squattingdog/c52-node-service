@@ -10,11 +10,16 @@ import { ICampaignModel } from "../data/model/interfaces/ICampaignModel";
 import { ICampaignService } from "../data/service/interfaces/ICampaignService";
 
 export class CampaignController implements IBaseController<ICampaignService> {
+    private _campaignService: CampaignService;
+
+    constructor(campaignService: CampaignService) {
+        this._campaignService = campaignService;
+    }
+
     create(req: Express.Request, res: Express.Response): void {
         try {
             let campaign: ICampaignModel = <ICampaignModel>req.body;
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.create(campaign, (error: any, result: any) => {
+            this._campaignService.create(campaign, (error: any, result: any) => {
                 if (error) {
                     logger("create::error", error);
                     res.send({ "error": "error performing the requested action" });
@@ -32,8 +37,8 @@ export class CampaignController implements IBaseController<ICampaignService> {
         try {
             let campaign: ICampaignModel = <ICampaignModel>req.body;
             let _id: string = req.params._id;
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.update(_id, campaign, (error: any, result: any) => {
+            // let campaignService: CampaignService = new CampaignService();
+            this._campaignService.update(_id, campaign, (error: any, result: any) => {
                 if (error) {
                     logger("update::error", error);
                     res.send({ "error": "error performing the requested action" });
@@ -51,8 +56,8 @@ export class CampaignController implements IBaseController<ICampaignService> {
     delete(req: Express.Request, res: Express.Response): void {
         try {
             let _id: string = req.params._id;
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.delete(_id, (error: any, result: any) => {
+            // let campaignService: CampaignService = new CampaignService();
+            this._campaignService.delete(_id, (error: any, result: any) => {
                 if (error) {
                     logger.log("delete::error:", error);
                     res.send({ "error": "error performing the requested action" });
@@ -69,8 +74,8 @@ export class CampaignController implements IBaseController<ICampaignService> {
     retrieve(req: Express.Request, res: Express.Response, next: Express.NextFunction): void {
         logger("getting campaigns");
         try {
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.retrieve((error: any, result: CampaignModel[]) => {
+            // let campaignService: CampaignService = new CampaignService();
+            this._campaignService.retrieve((error: any, result: CampaignModel[]) => {
                 if (error) {
                     logger("retrieve::error:", error);
                     res.json({ "error": "error performing the requested action" });
@@ -90,8 +95,8 @@ export class CampaignController implements IBaseController<ICampaignService> {
     findById(req: Express.Request, res: Express.Response): void {
         try {
             let _id: string = req.params._id;
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.findById(_id, (error: any, result: any) => {
+            // let campaignService: CampaignService = new CampaignService();
+            this._campaignService.findById(_id, (error: any, result: any) => {
                 if (error) {
                     logger("findById::error:", error);
                     res.send({ "error": "error performing the requested action" });
