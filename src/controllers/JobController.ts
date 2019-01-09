@@ -1,20 +1,20 @@
-﻿import debug from "debug";
-let logger = debug("c52::controllers::CampaignController");
-logger("logging for CampaignController");
+import debug from "debug";
+let logger = debug("c52::controllers::JobController");
+logger("logging for JobController");
 
 import * as Express from "express";
-import { CampaignService } from "../data/service/CampaignService";
 import { IBaseController } from "./interfaces/base/IBaseController";
-import { CampaignModel } from "../data/model/CampaignModel";
-import { ICampaignModel } from "../data/model/interfaces/ICampaignModel";
-import { ICampaignService } from "../data/service/interfaces/ICampaignService";
+import { IJobService } from "../data/service/interfaces/IJobService";
+import { IJobModel } from "../data/model/interfaces/IJobModel";
+import { JobService } from "../data/service/JobService";
+import { JobModel } from "../data/model/JobModel";
 
-export class CampaignController implements IBaseController<ICampaignService> {
+export class JobController implements IBaseController<IJobService> {
     create(req: Express.Request, res: Express.Response): void {
         try {
-            let campaign: ICampaignModel = <ICampaignModel>req.body;
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.create(campaign, (error: any, result: any) => {
+            let job: IJobModel = <IJobModel>req.body;
+            let jobService: JobService = new JobService();
+            jobService.create(job, (error: any, result: any) => {
                 if (error) {
                     logger("create::error", error);
                     res.send({ "error": "error performing the requested action" });
@@ -30,10 +30,10 @@ export class CampaignController implements IBaseController<ICampaignService> {
 
     update(req: Express.Request, res: Express.Response): void {
         try {
-            let campaign: ICampaignModel = <ICampaignModel>req.body;
+            let job: IJobModel = <IJobModel>req.body;
             let _id: string = req.params._id;
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.update(_id, campaign, (error: any, result: any) => {
+            let jobService: JobService = new JobService();
+            jobService.update(_id, job, (error: any, result: any) => {
                 if (error) {
                     logger("update::error", error);
                     res.send({ "error": "error performing the requested action" });
@@ -51,8 +51,8 @@ export class CampaignController implements IBaseController<ICampaignService> {
     delete(req: Express.Request, res: Express.Response): void {
         try {
             let _id: string = req.params._id;
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.delete(_id, (error: any, result: any) => {
+            let jobService: JobService = new JobService();
+            jobService.delete(_id, (error: any, result: any) => {
                 if (error) {
                     logger.log("delete::error:", error);
                     res.send({ "error": "error performing the requested action" });
@@ -69,8 +69,8 @@ export class CampaignController implements IBaseController<ICampaignService> {
     retrieve(req: Express.Request, res: Express.Response, next: Express.NextFunction): void {
         logger("getting campaigns");
         try {
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.retrieve((error: any, result: CampaignModel[]) => {
+            let jobService: JobService = new JobService();
+            jobService.retrieve((error: any, result: JobModel[]) => {
                 if (error) {
                     logger("retrieve::error:", error);
                     res.json({ "error": "error performing the requested action" });
@@ -90,8 +90,28 @@ export class CampaignController implements IBaseController<ICampaignService> {
     findById(req: Express.Request, res: Express.Response): void {
         try {
             let _id: string = req.params._id;
-            let campaignService: CampaignService = new CampaignService();
-            campaignService.findById(_id, (error: any, result: any) => {
+            let jobService: JobService = new JobService();
+            jobService.findById(_id, (error: any, result: any) => {
+                if (error) {
+                    logger("findById::error:", error);
+                    res.send({ "error": "error performing the requested action" });
+                } else {
+                    res.send(result);
+                }
+            });
+        } catch (ex) {
+            logger("findById exception:", ex);
+            res.send({ "error": "error in your request" });
+        }
+    }
+
+    retrieveByCampaignId(req: Express.Request, res: Express.Response): void {
+        logger(`in the controller`);
+        try {
+            let campaignId = req.params.campaignId;
+            logger(`campaignId: ${campaignId}`);
+            let jobService: JobService = new JobService();
+            jobService.findByCampaignId(campaignId, (error: any, result: any) => {
                 if (error) {
                     logger("findById::error:", error);
                     res.send({ "error": "error performing the requested action" });

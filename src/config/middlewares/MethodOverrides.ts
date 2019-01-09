@@ -1,13 +1,11 @@
-﻿import * as Express from "express";
-import * as MethodOverride from "method-override";
+﻿import { Application } from "express";
+import MethodOverride from "method-override";
 
 export class MethodOverrides {
-    static configuration(): any {
-        let app: Express.Application = Express();
-        app.use(MethodOverride("X-HTTP-METHOD"));
-
-        return app;
+    static configure(app: Application): any {
+        return MethodOverride("X-HTTP-METHOD");
     }
 }
 
+export default MethodOverrides;
 Object.seal(MethodOverrides);

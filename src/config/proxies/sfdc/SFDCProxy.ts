@@ -1,13 +1,9 @@
-﻿import * as debug from "debug";
+﻿import debug from "debug";
 let logger = debug("c52:proxies:sfdc:Proxy");
-import * as Request from "request";
 import { Constants } from "../../constants/Constants";
 import { AppConfig } from "../../settings/AppConfig";
-import { SfdcSettings } from "../../settings/providers/SfdcSettings";
-import { ConfigUtil } from "../../settings/ConfigUtil";
 import RedisRepository from "../../../common/cache/RedisRepository";
-
-var color = require("colors");
+import Request from "request";
 
 export class SFDCProxy {
     private constants = new Constants();
@@ -18,17 +14,17 @@ export class SFDCProxy {
      * public send method for all of SFDC calls
      * checks if accessToken is present and if accessTokenTTL has expired, refreshes the token as needed.
     */
-    public send(req, callback): void {
+    public send(req: any, callback: Function): void {
         RedisRepository.getByKey(this.constants.SFDC_AUTH_CACHE_KEY).then((val) => {
             let sfdcAuth = JSON.parse(val);
 
             logger("sfdcAuth: %O\n\n", sfdcAuth);
             let issuedTime = Number(sfdcAuth && sfdcAuth !== "undefined" ? sfdcAuth[this.constants.SFDC_ISSUED_AT] : null);
 
-            if (isNaN(issuedTime) || issuedTime + ConfigUtil.appConfig.settings.providers[0].accessTokenTTL * 60 * 1000 < new Date().getTime()) {
-                this.authenticate(req, (err, res, body) => {
+            if (isNaN(issuedTime) || issuedTime + AppConfig.settings.providers.salesforce.accessTokenTTL * 60 * 1000 < new Date().getTime()) {
+                this.authenticate(req, (err: Error, res: Response, body: string) => {
                     if (err) {
-                        var error = {
+                        let error = {
                             "status": "ERROR",
                             "ErrorCode": 10001,
                             "message": "internal server error"
@@ -49,32 +45,32 @@ export class SFDCProxy {
     }
 
     // private send method that appends necessary values to the request
-    private sendRequest(req, sfdcAuth, callback): void {
+    private sendRequest(req: any, sfdcAuth: any, callback: Function): void {
         logger("sfdcAuth in proxy: ", sfdcAuth.access_token);
         req.auth = {
             "bearer": sfdcAuth.access_token
         };
-        Request(req, (err, res, body): void => {
+        Request(req, (err: any, res: Request.Response, body: any): void => {
             logger("callback: %O", callback);
             callback(err, res, body);
         });
     }
 
     // get auth token for making sfdc api calls
-    private authenticate(req, callback): void {
+    private authenticate(req: Request, callback: Function): void {
         logger("*****  Authenticating to SFDC.  *****\n".yellow.bold);
 
-        var authForm = {};
+        let authForm: any = {};
         authForm[this.constants.SFDC_GRANT_TYPE] = this.constants.SFDC_GRANT_TYPE_VALUE_PASSWORD;
-        authForm[this.constants.SFDC_USERNAME] = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).username;
-        authForm[this.constants.SFDC_PASSWORD] = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).password;
-        authForm[this.constants.SFDC_CLIENT_ID] = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).clientId;
-        authForm[this.constants.SFDC_CLIENT_SECRET] = (<SfdcSettings>ConfigUtil.appConfig.settings.providers[0]).clientSecret;
+        authForm[this.constants.SFDC_USERNAME] = AppConfig.settings.providers.salesforce.username;
+        authForm[this.constants.SFDC_PASSWORD] = AppConfig.settings.providers.salesforce.password;
+        authForm[this.constants.SFDC_CLIENT_ID] = AppConfig.settings.providers.salesforce.clientId;
+        authForm[this.constants.SFDC_CLIENT_SECRET] = AppConfig.settings.providers.salesforce.clientSecret;
 
         logger("authForm:".cyan.bold, authForm);
-        logger("request:".cyan.bold, ConfigUtil.appConfig.settings.providers[0].getAuthUrl());
+        logger("request:".cyan.bold, AppConfig.sfdcAuthUrl);
 
-        Request.post(ConfigUtil.appConfig.settings.providers[0].getAuthUrl(), { qs: authForm }, (error: any, res: any, jsonBody: string) => {
+        Request.post(AppConfig.sfdcAuthUrl, { qs: authForm }, (error: any, res: any, jsonBody: string) => {
             logger("jsonBody:%O\n", jsonBody);
             let body = JSON.parse(jsonBody);
 
@@ -91,7 +87,7 @@ export class SFDCProxy {
                     logger("***** Missing Access Token *****\n".red.bold);
                     callback(body, res);
                 }
-                
+
                 callback(error, res, body);
             }
         });

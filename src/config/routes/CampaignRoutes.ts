@@ -1,22 +1,30 @@
-﻿import * as Debug from "debug";
-let logger = Debug("c52::config::routes::CampaignRouter");
+﻿import debug from "debug";
+let logger = debug("c52::config::routes::CampaignRouter");
 logger("logging for CampaignRouter");
 
-import * as Express from "express";
+import { Router } from "express";
 import { CampaignController } from "../../controllers/CampaignController";
+import { JobController } from "../../controllers/JobController";
 
 export class CampaignRoutes {
     private campaignController: CampaignController;
+    private jobController: JobController;
+    private router: Router;
 
     constructor() {
         this.campaignController = new CampaignController();
+        this.jobController = new JobController();
+        this.router = Router();
+        this.initV1Routes();
     }
 
-    get routes(): Express.Router {
-        let router: Express.Router = Express.Router();
+    get routes(): Router {
+        return this.router;
+    }
 
-        router.get("/v1/campaigns", this.campaignController.retrieve);
-        return router;
+    private initV1Routes() {
+        this.router.get("/v1/campaigns", this.campaignController.retrieve);
+        this.router.get("/v1/campaign/:campaignId/jobs", this.jobController.retrieveByCampaignId);
     }
 }
 

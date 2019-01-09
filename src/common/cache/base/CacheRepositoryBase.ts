@@ -12,7 +12,7 @@ export class CacheRepositoryBase<T extends ICacheProvider> implements IRepositor
 
     public getByKey(key: string): Promise<string> {
         return this.client.getAsync(key)
-            .then(function (res) {
+            .then(function (res: string) {
                 return res;
             });
     }

@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+*.log.*
 npm-debug.log*
 
 # Runtime data
@@ -14,6 +15,10 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+
+# config
+mongo.conf
+.env
 
 # nyc test coverage
 .nyc_output
