@@ -34,7 +34,7 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 
 ### Install Redis
 ##### Windows
-* Download from https://github.com/MSOpenTech/redis/releases/download/win-3.2.100/Redis-x64-3.2.100.msi
+* Download from https://github.com/MSOpenTech/redis/releases/
 * Run the installer and accept all defaults.  The port should be 6379.
 
 ##### linux
@@ -63,9 +63,15 @@ A nodejs server that syncs data from SFDC to a mongoDB in order to expose data f
 
 #### Configure mongoDB
 * Create a data directory where the data files will be stored.  Ensure the process running node has access to read and write to the directory and all of its files.
-   * example `e:\c52\dev\mongdb\data>`
-* Add the location that was created to the $root/config/mongodb.conf file in storage:dbPath.
-* Create a logs folder under $root. (this will eventually be added to the setup script)
+   * example 
+   `e:\mongo\myApp\data`
+* Create a copy of $\src\config\sample.mongo.conf and name it $\src\config\mongo.conf
+* Update the log file path as needed.  Note - the full directory path will need to exist on disk; the file will be automatically created.
+    * example 
+    `systemLog: path: logs\myLog.log`
+* Update the storage:dbPath: property in the mongo.conf file with the path to the data direcortory create in the first step.
+    * example
+    `stroage: dbPath: e:\mongo\myApp\data`
 
 #### Start mongoDB
 ##### Windows

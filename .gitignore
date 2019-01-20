@@ -17,7 +17,7 @@ lib-cov
 coverage
 
 # config
-mongo.conf
+**/mongo.conf
 .env
 
 # nyc test coverage
