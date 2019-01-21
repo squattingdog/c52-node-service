@@ -1,4 +1,5 @@
-﻿import { IJobModel } from "./interfaces/IJobModel";
+﻿import { LocationModel } from "./LocationModel";
+import { IJobModel } from "./interfaces/IJobModel";
 
 export class JobModel implements IJobModel {
 
@@ -10,14 +11,7 @@ export class JobModel implements IJobModel {
         public numberOfVolunteersStillNeeded: number,
         public nubmerOfShifts: number,
         public active: boolean,
-        public location: {
-            zip: string,
-            street: string,
-            city: string,
-            state: null,
-            informataion: string,
-            geocode: number
-        },
+        public location: LocationModel,
         public campaignId: string,
         public displayOnWebsite: boolean) {
     }

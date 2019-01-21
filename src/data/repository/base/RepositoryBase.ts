@@ -6,7 +6,7 @@ import { IRead } from "../interfaces/IRead";
 import { IWrite } from "../interfaces/IWrite";
 import * as Mongoose from "mongoose";
 
-export abstract class RepositoryBase<T extends Mongoose.Document> implements IRead<T>, IWrite<T> {
+export abstract class RepositoryBase<T> implements IRead<T>, IWrite<T> {
     private _model: Mongoose.Model<Mongoose.Document>;
 
     public get model(): Mongoose.Model<Mongoose.Document> { return this._model; }

@@ -1,4 +1,5 @@
 ﻿import * as Mongoose from "mongoose";
+import { LocationModel } from "../LocationModel";
 
 export interface IJobModel extends Mongoose.Document {
     jobId: string;
@@ -9,14 +10,7 @@ export interface IJobModel extends Mongoose.Document {
     numberOfVolunteersStillNeeded: number;
     nubmerOfShifts: number;
     active: boolean;
-    location: {
-        zip: string,
-        street: string,
-        city: string,
-        state: null,
-        informataion: string,
-        geocode: number
-    };
+    location: LocationModel;
     campaignId: string;
     displayOnWebsite: boolean;
 }
