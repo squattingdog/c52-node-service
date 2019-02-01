@@ -2,7 +2,7 @@
 import * as BodyParser from "body-parser";
 import { MethodOverrides } from "../MethodOverrides";
 import { Session } from "../Session";
-import { CorsOverrides } from "../CorsOerrides";
+import { CorsOverrides } from "../CorsOverrides";
 
 export class MiddlewaresBase {
     static configure(app: Express.Application): void {
