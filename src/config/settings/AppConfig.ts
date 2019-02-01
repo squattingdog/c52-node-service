@@ -6,7 +6,7 @@
                 "port": process.env.PORT || 5000,
                 "debug": false,
                 "methods": process.env.ALLOWED_METHODS || "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-                "origin": process.env.ALLOWE_ORIGIN || "*"
+                "origin": process.env.ALLOWED_ORIGIN || "*"
             },
             "session": {
                 "redis": {

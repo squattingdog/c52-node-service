@@ -1,4 +1,4 @@
-import { AppConfig } from "./../settings/AppConfig";
+import { AppConfig } from "../settings/AppConfig";
 import * as Express from "express";
 import Cors from "cors";
 
