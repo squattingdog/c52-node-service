@@ -1,1 +1,1 @@
-﻿web: gulp deploy && node ./dist/App.js prod
+﻿web: gulp transpile && node ./dist/App.js prod
