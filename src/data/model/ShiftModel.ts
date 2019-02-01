@@ -1,5 +1,6 @@
 ﻿import { IShiftModel } from "./interfaces/IShiftModel";
 import { LocationModel } from "./LocationModel";
+import moment from "moment";
 
 export class ShiftModel implements IShiftModel {
     public endDateTime: Date;
@@ -18,6 +19,6 @@ export class ShiftModel implements IShiftModel {
 
         // set endDateTime by adding the duration (in float hours) to the startTime.
         this.endDateTime = this.startDateTime;
-        this.endDateTime.setMinutes(this.startDateTime.getMinutes() + duration * 60);
+        this.endDateTime = moment(this.endDateTime).add(this.duration, "hours").toDate();
     }
 }

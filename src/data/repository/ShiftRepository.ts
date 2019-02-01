@@ -9,7 +9,7 @@ export class ShiftRepository extends RepositoryBase<IShiftModel> {
     }
 
     getShiftsByJobId(jobId: string, callback: (error: any, result: IShiftModel[]) => void) {
-        super.model.find({jobId: jobId}, callback);
+        super.model.find({jobId: jobId}).sort({startDateTime: 1}).exec(callback);
     }
 }
 
