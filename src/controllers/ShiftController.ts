@@ -131,8 +131,10 @@ export class ShiftController implements IBaseController<IShiftService> {
 
             SFDCProxy.send(sfRequest, (error: Error, prxyRes: Response, body: string) => {
                 if (error) {
+                    console.log(error);
                     res.status(500).send(error);
                 } else {
+                    console.log(body);
                     res.send(JSON.parse(body));
                 }
             });
