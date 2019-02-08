@@ -31,7 +31,9 @@ export class RedisProvider implements ICacheProvider {
         // let client: Redis.RedisClient;
             // pw = AppConfig.settings.session.redis.url.auth.split(":")[1];
             // logger("pw".cyan.bold, pw.cyan.bold);
-        let client = Redis.createClient(AppConfig.settings.session.redis.url);
+        let client = Redis.createClient({
+            url: process.env.REDIS_URL
+        });
         client.on("error", (err) => {
                 logger("Redis Error:".red.bold, err);
             })
