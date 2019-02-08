@@ -5,6 +5,8 @@ import * as Express from "express";
 import { Optional } from "../../typings/globals";
 import { ShiftModel } from "../data/model/ShiftModel";
 import { IShiftModel } from "../data/model/interfaces/IShiftModel";
+import { AppConfig } from "../config/settings/AppConfig";
+import SFDCProxy from "../config/proxies/sfdc/SFDCProxy";
 
 export class ShiftController implements IBaseController<IShiftService> {
 
@@ -107,6 +109,37 @@ export class ShiftController implements IBaseController<IShiftService> {
         } catch (ex) {
             console.log("delete exception:", ex);
             res.send({ "error": "error in your request" });
+        }
+    }
+
+    volunteer(req: Express.Request, res: Express.Response): void {
+        try {
+            let routeUri = AppConfig.sfdcSoslUrl + "/services/data/v44.0/sobjects/GW_Volunteers__Volunteer_Hours__c";
+            let sfRequest = {
+                method: "POST",
+                uri: routeUri,
+                body: {
+                    "GW_Volunteers__Comments__c": "signed up through mobile app",
+                    "GW_Volunteers__Contact__c": req.body.contactId,
+                    "GW_Volunteers__Status__c": "Confirmed",
+                    "GW_Volunteers__System_Note__c": "auto sign up",
+                    "GW_Volunteers__Volunteer_Shift__c": req.params.shiftId,
+                    "GW_Volunteers__Volunteer_Job__c": req.params.jobId,
+                    "GW_Volunteers__Start_Date__c": req.body.startDate
+                }
+            };
+
+            SFDCProxy.send(sfRequest, (error: Error, prxyRes: Response, body: string) => {
+                if (error) {
+                    res.status(500).send(error);
+                } else {
+                    res.send(JSON.parse(body));
+                }
+            });
+
+        } catch (ex) {
+            console.log("error registering volunteer: ", ex);
+            res.send({"error": "failed to register for shift"});
         }
     }
 }
