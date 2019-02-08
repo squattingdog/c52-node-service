@@ -10,7 +10,7 @@
             },
             "session": {
                 "redis": {
-                    "url": process.env.REDIS_URL || "redis://127.0.0.1:6379",
+                    "url": process.env.REDIS_URL,
                     "secret": process.env.REDIS_SECRET || "asdf1234",
                     "ttl": process.env.REDIS_TTL || 480,
                     "saveUninitialized": false,
