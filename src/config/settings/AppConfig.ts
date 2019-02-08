@@ -35,7 +35,7 @@
                     "authRoute": "services/oauth2/token",
                     "apexRestSvc": "services/apexrest/",
                     "accessTokenTTL": process.env.SFDC_TTL || 10,
-                    "apiVersion": process.env.SFDC_API_VERSION || "37.0"
+                    "apiVersion": process.env.SFDC_API_VERSION || "44.0"
                 },
                 "google": {
 
@@ -48,20 +48,20 @@
     }
 
     public static get sfdcAuthUrl(): string {
-        return AppConfig.settings().providers.salesforce.instanceUrl
-        + AppConfig.settings().providers.salesforce.authRoute;
+        return AppConfig.settings.providers.salesforce.instanceUrl
+        + AppConfig.settings.providers.salesforce.authRoute;
     }
     public static get sfdcApexRestUrl(): string {
-        return AppConfig.settings().providers.salesforce.baseUrl
-        + AppConfig.settings().providers.salesforce.apexRestSvc
+        return AppConfig.settings.providers.salesforce.baseUrl
+        + AppConfig.settings.providers.salesforce.apexRestSvc
         + "v"
-        + AppConfig.settings().providers.salesforce.apiVersion
+        + AppConfig.settings.providers.salesforce.apiVersion
         + "/";
     }
     public static get sfdcSoslUrl(): string {
-        return AppConfig.settings().providers.salesforce.baseUrl
+        return AppConfig.settings.providers.salesforce.baseUrl
         + "services/data/v"
-        + AppConfig.settings().providers.salesforce.apiVersion
+        + AppConfig.settings.providers.salesforce.apiVersion
         + "/";
     }
 }

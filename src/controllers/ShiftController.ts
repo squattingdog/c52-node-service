@@ -114,7 +114,7 @@ export class ShiftController implements IBaseController<IShiftService> {
 
     volunteer(req: Express.Request, res: Express.Response): void {
         try {
-            let routeUri = AppConfig.sfdcSoslUrl + "/services/data/v44.0/sobjects/GW_Volunteers__Volunteer_Hours__c";
+            let routeUri = AppConfig.sfdcApexRestUrl + "/services/data/v44.0/sobjects/GW_Volunteers__Volunteer_Hours__c";
             let sfRequest = {
                 method: "POST",
                 uri: routeUri,
