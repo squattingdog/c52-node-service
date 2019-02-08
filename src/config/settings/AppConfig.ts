@@ -52,14 +52,14 @@
         + AppConfig.settings.providers.salesforce.authRoute;
     }
     public static get sfdcApexRestUrl(): string {
-        return AppConfig.settings.providers.salesforce.baseUrl
+        return AppConfig.settings.providers.salesforce.instanceUrl
         + AppConfig.settings.providers.salesforce.apexRestSvc
         + "v"
         + AppConfig.settings.providers.salesforce.apiVersion
         + "/";
     }
     public static get sfdcSoslUrl(): string {
-        return AppConfig.settings.providers.salesforce.baseUrl
+        return AppConfig.settings.providers.salesforce.instanceUrl
         + "services/data/v"
         + AppConfig.settings.providers.salesforce.apiVersion
         + "/";
