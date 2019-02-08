@@ -28,7 +28,7 @@ export class CampaignRoutes {
     private initV1Routes() {
         this.router.get("/v1/campaigns", this.campaignController.retrieve);
         this.router.get("/v1/campaign/:campaignId/jobs", this.jobController.retrieveByCampaignId);
-        this.router.get("/v1/campaign/:campaignId/job/:jobId/shifts", this.shiftController.findByShiftId);
+        this.router.get("/v1/campaign/:campaignId/job/:jobId/shifts", this.shiftController.findByJobId);
         this.router.get("/v1/campaign/:campaignId/job/:jobId/shift/:shiftId", this.shiftController.findById);
         this.router.post("/v1/campaign/:campaignId/job/:jobId/shift/:shiftId/volunteer", this.shiftController.volunteer);
     }

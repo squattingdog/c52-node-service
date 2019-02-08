@@ -41,7 +41,7 @@ export class ShiftController implements IBaseController<IShiftService> {
         }
     }
 
-    findByShiftId(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+    findByJobId(req: Express.Request, res: Express.Response, next: Express.NextFunction) {
         try {
             let jobId: string = req.params.jobId;
             let shiftService: ShiftService = new ShiftService();
@@ -125,7 +125,7 @@ export class ShiftController implements IBaseController<IShiftService> {
                     "GW_Volunteers__System_Note__c": "auto sign up",
                     "GW_Volunteers__Volunteer_Shift__c": req.params.shiftId,
                     "GW_Volunteers__Volunteer_Job__c": req.params.jobId,
-                    "GW_Volunteers__Start_Date__c": req.body.startDate
+                    "GW_Volunteers__Start_Date__c": req.body.startDateTime
                 }
             };
 
