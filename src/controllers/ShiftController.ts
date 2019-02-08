@@ -128,6 +128,8 @@ export class ShiftController implements IBaseController<IShiftService> {
                     "GW_Volunteers__Start_Date__c": req.body.startDateTime
                 }
             };
+            console.log(`routeUrl: ${routeUri}`);
+            console.log(`sfdc request: ${sfRequest}`);
 
             SFDCProxy.send(sfRequest, (error: Error, prxyRes: Response, body: string) => {
                 if (error) {
