@@ -6,6 +6,9 @@ import * as Express from "express";
 import * as http from "http";
 import { AppConfig } from "./config/settings/AppConfig";
 import { ExpressConfig } from "./config/ExpressConfig";
+import * as dotenv from "dotenv";
+dotenv.config();
+
 
 // creates and configures an ExpressJS web server.
 export class App {

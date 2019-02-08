@@ -52,9 +52,9 @@
         + AppConfig.settings.providers.salesforce.authRoute;
     }
     public static get sfdcApexRestUrl(): string {
+        console.log(`instanceUrl: ${AppConfig.settings.providers.salesforce.instanceUrl}`);
         return AppConfig.settings.providers.salesforce.instanceUrl
-        + AppConfig.settings.providers.salesforce.apexRestSvc
-        + "v"
+        + "services/data/v"
         + AppConfig.settings.providers.salesforce.apiVersion
         + "/";
     }

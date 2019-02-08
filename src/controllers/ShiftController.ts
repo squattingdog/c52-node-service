@@ -114,11 +114,11 @@ export class ShiftController implements IBaseController<IShiftService> {
 
     volunteer(req: Express.Request, res: Express.Response): void {
         try {
-            let routeUri = AppConfig.sfdcApexRestUrl + "/services/data/v44.0/sobjects/GW_Volunteers__Volunteer_Hours__c";
+            let routeUri = AppConfig.sfdcApexRestUrl + "sobjects/GW_Volunteers__Volunteer_Hours__c";
             let sfRequest = {
                 method: "POST",
                 uri: routeUri,
-                body: {
+                json: {
                     "GW_Volunteers__Comments__c": "signed up through mobile app",
                     "GW_Volunteers__Contact__c": req.body.contactId,
                     "GW_Volunteers__Status__c": "Confirmed",
@@ -129,15 +129,16 @@ export class ShiftController implements IBaseController<IShiftService> {
                 }
             };
             console.log(`routeUrl: ${routeUri}`);
-            console.log(`sfdc request: ${sfRequest}`);
+            console.log(`sfdc request: ${JSON.stringify(sfRequest)}`);
 
             SFDCProxy.send(sfRequest, (error: Error, prxyRes: Response, body: string) => {
                 if (error) {
                     console.log(error);
                     res.status(500).send(error);
                 } else {
-                    console.log(body);
-                    res.send(JSON.parse(body));
+                    console.log("sfdc requeset success".green.bold);
+                    console.log(`body: ${JSON.stringify(body)}`);
+                    res.send(body);
                 }
             });
 
