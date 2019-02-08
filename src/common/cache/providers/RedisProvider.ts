@@ -28,17 +28,10 @@ export class RedisProvider implements ICacheProvider {
     private connect(): Redis.RedisClient {
         let pw: string;
 
-        let client: Redis.RedisClient;
-        if (process.argv[2] === "prod") {
+        // let client: Redis.RedisClient;
             // pw = AppConfig.settings.session.redis.url.auth.split(":")[1];
             // logger("pw".cyan.bold, pw.cyan.bold);
-            client = Redis.createClient(AppConfig.settings.session.redis.url);
-        } else {
-            client = Redis.createClient({
-                url: AppConfig.settings.session.redis.url
-                , db: AppConfig.settings.session.redis.privateSessionDbId
-            });
-        }
+        let client = Redis.createClient(AppConfig.settings.session.redis.url);
         client.on("error", (err) => {
                 logger("Redis Error:".red.bold, err);
             })
