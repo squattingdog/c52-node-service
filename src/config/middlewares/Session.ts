@@ -10,8 +10,7 @@ export class Session {
 
     public getExpressSession(): RequestHandler {
         let client: Redis.RedisClient = Redis.createClient({
-            port: Number(AppConfig.settings.session.redis.url.port)
-            , host: AppConfig.settings.session.redis.url.hostname
+            url: AppConfig.settings.session.redis.url
             , db: "1"
         });
 
